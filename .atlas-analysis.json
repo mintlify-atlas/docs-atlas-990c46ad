@@ -1,0 +1,58 @@
+{
+  "projectType": "frontend",
+  "projectName": "Coffetto",
+  "projectDescription": "A responsive coffee shop website showcasing premium Peruvian coffee products with smooth animations and modern design.",
+  "theme": "almond",
+  "primaryColor": "#3d2b27",
+  "lightColor": "#ddb777",
+  "darkColor": "#1f1411",
+  "navigation": {
+    "groups": [
+      {
+        "group": "Get Started",
+        "pages": [
+          "introduction",
+          "quickstart"
+        ]
+      },
+      {
+        "group": "Components",
+        "pages": [
+          "components/html-structure",
+          "components/css-styling",
+          "components/javascript-features"
+        ]
+      },
+      {
+        "group": "Customization",
+        "pages": [
+          "customization/colors-theming",
+          "customization/layout-configuration",
+          "customization/content"
+        ]
+      },
+      {
+        "group": "Deployment",
+        "pages": [
+          "deployment/hosting-guide"
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Responsive single-page design",
+    "Smooth scroll navigation with active link highlighting",
+    "ScrollReveal animations for engaging user experience",
+    "Product showcase section",
+    "Newsletter subscription form",
+    "Mobile-first responsive layout"
+  ],
+  "publicApiSurface": [
+    "scrollHeader() - Changes header background on scroll",
+    "scrollUp() - Shows scroll-to-top button",
+    "scrollActive() - Highlights active navigation links",
+    "ScrollReveal animations - Configurable reveal effects",
+    "CSS custom properties for theming",
+    "Responsive grid system"
+  ]
+}

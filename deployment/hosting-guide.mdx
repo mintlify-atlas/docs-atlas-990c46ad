@@ -1,0 +1,959 @@
+---
+title: 'Hosting Guide'
+description: 'Step-by-step guide to deploy your Coffetto website on various hosting platforms'
+---
+
+## Introduction
+
+Coffetto is a **static website** consisting of HTML, CSS, and JavaScript files with no server-side code or build process required. This makes deployment simple and flexible - you can host it on virtually any web hosting platform.
+
+Since there's no backend database or server-side processing, you can take advantage of:
+- Free hosting tiers on modern platforms
+- Global CDN distribution for fast loading
+- Automatic HTTPS/SSL certificates
+- Simple deployment workflows
+
+## Requirements
+
+To deploy Coffetto, you only need:
+
+- The complete project files:
+  - `index.html` (main page)
+  - `assets/` folder (CSS, JavaScript, images)
+  - `favicon.png` or other static assets
+- A hosting platform (see options below)
+- Optional: Custom domain name
+
+<Note>
+No build process, Node.js, or package installation is required. The website works as-is!
+</Note>
+
+---
+
+## Local Testing Before Deployment
+
+Before deploying to production, test your website locally to ensure everything works correctly.
+
+<Tabs>
+  <Tab title="Python HTTP Server">
+    Python 3 comes pre-installed on most systems and includes a simple HTTP server.
+
+    ```bash
+    # Navigate to your project directory
+    cd /path/to/coffetto
+
+    # Start server on port 8000
+    python3 -m http.server 8000
+
+    # Or Python 2
+    python -m SimpleHTTPServer 8000
+    ```
+
+    Open `http://localhost:8000` in your browser.
+
+    <Note>
+    **Setup time:** Instant | **Cost:** Free
+    </Note>
+  </Tab>
+
+  <Tab title="Node.js http-server">
+    Fast and feature-rich local development server.
+
+    ```bash
+    # Install globally
+    npm install -g http-server
+
+    # Navigate to project directory
+    cd /path/to/coffetto
+
+    # Start server
+    http-server -p 8000
+
+    # With live reload
+    http-server -p 8000 -c-1
+    ```
+
+    Open `http://localhost:8000` in your browser.
+
+    <Note>
+    The `-c-1` flag disables caching for development.
+    </Note>
+  </Tab>
+
+  <Tab title="PHP Built-in Server">
+    If you have PHP installed, use its built-in server.
+
+    ```bash
+    # Navigate to project directory
+    cd /path/to/coffetto
+
+    # Start server on port 8000
+    php -S localhost:8000
+    ```
+
+    Open `http://localhost:8000` in your browser.
+  </Tab>
+
+  <Tab title="VS Code Live Server">
+    Popular VS Code extension with automatic browser refresh.
+
+    <Steps>
+      <Step title="Install Extension">
+        Install the "Live Server" extension by Ritwick Dey from VS Code marketplace.
+      </Step>
+
+      <Step title="Open Project">
+        Open your Coffetto project folder in VS Code.
+      </Step>
+
+      <Step title="Start Server">
+        Right-click on `index.html` and select "Open with Live Server" or click "Go Live" in the status bar.
+      </Step>
+
+      <Step title="Auto-Reload">
+        Your browser will automatically refresh when you save changes to any file.
+      </Step>
+    </Steps>
+
+    <Note>
+    **Setup time:** 2 minutes | **Cost:** Free
+    </Note>
+  </Tab>
+</Tabs>
+
+---
+
+## Hosting Platform Options
+
+### 1. GitHub Pages
+
+**Best for:** Open-source projects, portfolio sites, documentation  
+**Setup time:** 5-10 minutes | **Cost:** Free
+
+GitHub Pages provides free static site hosting directly from your GitHub repository.
+
+<Steps>
+  <Step title="Create GitHub Repository">
+    Create a new repository on GitHub:
+
+    ```bash
+    # Initialize git in your project (if not already done)
+    cd /path/to/coffetto
+    git init
+
+    # Add all files
+    git add .
+
+    # Create initial commit
+    git commit -m "Initial commit: Coffetto website"
+
+    # Create repository on GitHub (replace username and repo-name)
+    gh repo create coffetto --public --source=. --remote=origin --push
+    ```
+
+    Or create manually at [github.com/new](https://github.com/new).
+  </Step>
+
+  <Step title="Push Your Code">
+    ```bash
+    # Add remote (if created manually)
+    git remote add origin https://github.com/username/coffetto.git
+
+    # Push to GitHub
+    git branch -M main
+    git push -u origin main
+    ```
+  </Step>
+
+  <Step title="Enable GitHub Pages">
+    1. Go to your repository on GitHub
+    2. Click **Settings** > **Pages** (in sidebar)
+    3. Under "Source", select branch `main` and folder `/ (root)`
+    4. Click **Save**
+
+    Your site will be published at: `https://username.github.io/coffetto/`
+  </Step>
+
+  <Step title="Custom Domain (Optional)">
+    To use a custom domain:
+
+    ```bash
+    # Create CNAME file in your project
+    echo "www.yoursite.com" > CNAME
+
+    # Commit and push
+    git add CNAME
+    git commit -m "Add custom domain"
+    git push
+    ```
+
+    Then add DNS records with your domain provider:
+    - **A Record:** Point to GitHub's IPs (185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153)
+    - **CNAME Record:** Point www to `username.github.io`
+  </Step>
+</Steps>
+
+<Note>
+GitHub Pages automatically provides HTTPS/SSL for both github.io domains and custom domains.
+</Note>
+
+<Warning>
+Changes may take a few minutes to appear. GitHub Pages caches content aggressively.
+</Warning>
+
+**Updating Your Site:**
+```bash
+# Make changes to your files
+git add .
+git commit -m "Update website content"
+git push
+```
+
+---
+
+### 2. Netlify
+
+**Best for:** Modern web projects, fast deployment, form handling  
+**Setup time:** 3-5 minutes | **Cost:** Free (100GB bandwidth/month)
+
+Netlify offers instant deployment with continuous integration, automatic HTTPS, and global CDN.
+
+<Tabs>
+  <Tab title="Drag & Drop">
+    Fastest deployment method - no command line needed!
+
+    <Steps>
+      <Step title="Create Netlify Account">
+        Sign up at [netlify.com](https://netlify.com) (free account).
+      </Step>
+
+      <Step title="Prepare Files">
+        Create a ZIP file of your project or prepare to drag the folder:
+        ```bash
+        # Optional: create a zip file
+        zip -r coffetto.zip . -x "*.git*" -x "node_modules/*"
+        ```
+      </Step>
+
+      <Step title="Deploy">
+        1. Log in to Netlify
+        2. Click "Add new site" > "Deploy manually"
+        3. Drag your project folder (or ZIP file) to the upload area
+        4. Wait for deployment to complete (usually 10-30 seconds)
+      </Step>
+
+      <Step title="Get Your URL">
+        Netlify provides a random URL like: `https://random-name-123.netlify.app`
+
+        You can customize this in **Site settings** > **Change site name**.
+      </Step>
+    </Steps>
+  </Tab>
+
+  <Tab title="Git Integration">
+    Automatic deployments when you push code changes.
+
+    <Steps>
+      <Step title="Push to Git">
+        Ensure your code is on GitHub, GitLab, or Bitbucket:
+        ```bash
+        git init
+        git add .
+        git commit -m "Initial commit"
+        git push origin main
+        ```
+      </Step>
+
+      <Step title="Connect Repository">
+        1. Log in to Netlify
+        2. Click "Add new site" > "Import an existing project"
+        3. Choose your Git provider and authorize Netlify
+        4. Select your repository
+      </Step>
+
+      <Step title="Configure Build Settings">
+        Since Coffetto is a static site with no build process:
+        - **Build command:** Leave empty or use `echo "No build needed"`
+        - **Publish directory:** `./` (root directory)
+
+        Click **Deploy site**.
+      </Step>
+
+      <Step title="Automatic Deployments">
+        Every push to your main branch triggers automatic deployment. View progress in the **Deploys** tab.
+      </Step>
+    </Steps>
+  </Tab>
+
+  <Tab title="Netlify CLI">
+    Deploy from command line for developer workflow.
+
+    <Steps>
+      <Step title="Install Netlify CLI">
+        ```bash
+        npm install -g netlify-cli
+        ```
+      </Step>
+
+      <Step title="Authenticate">
+        ```bash
+        netlify login
+        ```
+        This opens a browser window to authorize the CLI.
+      </Step>
+
+      <Step title="Deploy">
+        ```bash
+        # Navigate to project directory
+        cd /path/to/coffetto
+
+        # Deploy to preview URL
+        netlify deploy
+
+        # Deploy to production
+        netlify deploy --prod
+        ```
+
+        Follow the prompts to create a new site or link to existing one.
+      </Step>
+
+      <Step title="Continuous Deployment">
+        Link your git repository for automatic deployments:
+        ```bash
+        netlify init
+        ```
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+**Custom Domain Setup:**
+1. Go to **Site settings** > **Domain management**
+2. Click **Add custom domain**
+3. Enter your domain name
+4. Update DNS records with your domain provider:
+   - Add Netlify's nameservers, OR
+   - Add a CNAME record pointing to your Netlify subdomain
+
+<Note>
+**Netlify Benefits:**
+- Automatic HTTPS/SSL certificates (via Let's Encrypt)
+- Global CDN with 100+ edge locations
+- Form handling (add `netlify` attribute to forms)
+- Instant cache invalidation
+- Deploy previews for pull requests
+</Note>
+
+---
+
+### 3. Vercel
+
+**Best for:** Frontend projects, Next.js apps, developer-focused workflows  
+**Setup time:** 5-10 minutes | **Cost:** Free (100GB bandwidth/month)
+
+Vercel offers zero-configuration deployment with excellent performance and developer experience.
+
+<Tabs>
+  <Tab title="Git Integration">
+    Recommended method with automatic deployments.
+
+    <Steps>
+      <Step title="Create Vercel Account">
+        Sign up at [vercel.com](https://vercel.com) using your GitHub, GitLab, or Bitbucket account.
+      </Step>
+
+      <Step title="Import Project">
+        1. Click "Add New..." > "Project"
+        2. Import your Git repository
+        3. Vercel auto-detects it's a static site
+      </Step>
+
+      <Step title="Configure & Deploy">
+        - **Framework Preset:** Other
+        - **Build Command:** Leave empty
+        - **Output Directory:** `./`
+        - **Install Command:** Leave empty
+
+        Click **Deploy**.
+      </Step>
+
+      <Step title="Access Your Site">
+        Your site is live at: `https://coffetto.vercel.app`
+
+        Every git push automatically triggers a new deployment.
+      </Step>
+    </Steps>
+  </Tab>
+
+  <Tab title="Vercel CLI">
+    Deploy directly from your terminal.
+
+    <Steps>
+      <Step title="Install Vercel CLI">
+        ```bash
+        npm install -g vercel
+        ```
+      </Step>
+
+      <Step title="Navigate to Project">
+        ```bash
+        cd /path/to/coffetto
+        ```
+      </Step>
+
+      <Step title="Deploy">
+        ```bash
+        # First deployment (creates project)
+        vercel
+
+        # Production deployment
+        vercel --prod
+        ```
+
+        Follow the interactive prompts:
+        - Set up and deploy? **Y**
+        - Which scope? Select your account
+        - Link to existing project? **N** (first time)
+        - Project name? **coffetto**
+        - Directory? **./**
+      </Step>
+
+      <Step title="Subsequent Deployments">
+        ```bash
+        # Preview deployment
+        vercel
+
+        # Production deployment
+        vercel --prod
+        ```
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+**Custom Domain Setup:**
+1. Go to your project's **Settings** > **Domains**
+2. Add your custom domain
+3. Update DNS records:
+   - **A Record:** `76.76.19.19`
+   - **CNAME Record:** `cname.vercel-dns.com`
+
+<Note>
+**Vercel Features:**
+- Automatic HTTPS with SSL certificates
+- Global CDN (edge network)
+- Preview deployments for every git push
+- Analytics (optional)
+- Instant rollbacks to previous deployments
+</Note>
+
+---
+
+### 4. Traditional Web Hosting (cPanel/FTP)
+
+**Best for:** Existing hosting plans, shared hosting, traditional workflows  
+**Setup time:** 10-15 minutes | **Cost:** Varies ($3-10/month typical)
+
+If you have a traditional web hosting account (GoDaddy, Bluehost, HostGator, etc.), you can deploy via FTP.
+
+<Steps>
+  <Step title="Get FTP Credentials">
+    Log in to your hosting control panel (cPanel) and locate:
+    - FTP hostname (e.g., `ftp.yoursite.com`)
+    - FTP username
+    - FTP password
+    - Port (usually 21 for FTP, 22 for SFTP)
+  </Step>
+
+  <Step title="Connect via FTP Client">
+    Use an FTP client like FileZilla, Cyberduck, or WinSCP:
+
+    1. Download and install [FileZilla](https://filezilla-project.org/)
+    2. Open FileZilla and enter credentials:
+       - **Host:** ftp.yoursite.com
+       - **Username:** your_username
+       - **Password:** your_password
+       - **Port:** 21
+    3. Click **Quickconnect**
+  </Step>
+
+  <Step title="Navigate to Web Root">
+    On the remote server (right side), navigate to your web root directory:
+    - Usually `public_html/` or `www/` or `htdocs/`
+    - For subdomain: `public_html/subdomain/`
+  </Step>
+
+  <Step title="Upload Files">
+    1. On the local side (left), navigate to your Coffetto project folder
+    2. Select all files and folders:
+       - `index.html`
+       - `assets/` folder
+       - Any other files
+    3. Right-click and select **Upload**
+    4. Wait for the transfer to complete
+  </Step>
+
+  <Step title="Verify Deployment">
+    Open your domain in a browser: `https://yoursite.com`
+
+    If you see a directory listing instead of your site, ensure `index.html` is in the correct directory.
+  </Step>
+</Steps>
+
+<Warning>
+**Common Issues:**
+- **Wrong directory:** Make sure files are in the web root (`public_html/`), not a subfolder
+- **File permissions:** Ensure files have read permissions (644 for files, 755 for folders)
+- **Case sensitivity:** Linux servers are case-sensitive - `Assets/` ≠ `assets/`
+</Warning>
+
+**File Structure on Server:**
+```
+public_html/
+├── index.html
+├── assets/
+│   ├── css/
+│   │   └── styles.css
+│   ├── js/
+│   │   ├── main.js
+│   │   └── scrollreveal.min.js
+│   └── img/
+│       └── (all images)
+└── favicon.png
+```
+
+<Note>
+**FTP vs SFTP:**
+- **FTP:** Standard protocol, less secure
+- **SFTP/SSH:** Encrypted connection, more secure (use when available)
+</Note>
+
+---
+
+## Custom Domain Configuration
+
+Most hosting platforms support custom domains. Here's the general process:
+
+<Steps>
+  <Step title="Purchase Domain">
+    Buy a domain from registrars like:
+    - Namecheap
+    - Google Domains
+    - GoDaddy
+    - Cloudflare Registrar
+  </Step>
+
+  <Step title="Get DNS Records">
+    From your hosting platform, get the DNS configuration:
+    - **A Records:** IP addresses
+    - **CNAME Records:** Alias targets
+    - **Name servers:** (some platforms)
+  </Step>
+
+  <Step title="Update DNS">
+    Log in to your domain registrar and add DNS records:
+
+    **Example for Netlify:**
+    ```
+    Type: A Record
+    Name: @
+    Value: 75.2.60.5
+
+    Type: CNAME
+    Name: www
+    Value: your-site.netlify.app
+    ```
+  </Step>
+
+  <Step title="Wait for Propagation">
+    DNS changes can take 24-48 hours to propagate globally, but usually take 1-4 hours.
+
+    Check status: [whatsmydns.net](https://whatsmydns.net)
+  </Step>
+
+  <Step title="Enable HTTPS">
+    Most modern platforms (Netlify, Vercel, GitHub Pages) automatically provision SSL certificates via Let's Encrypt once DNS is configured.
+  </Step>
+</Steps>
+
+<Note>
+Keep your domain registrar and hosting platform separate for better control and easier migration.
+</Note>
+
+---
+
+## HTTPS/SSL Configuration
+
+HTTPS encrypts data between your server and visitors, providing security and trust.
+
+### Why HTTPS Matters
+
+- **Security:** Encrypts data in transit
+- **SEO:** Google ranks HTTPS sites higher
+- **Trust:** Browsers mark HTTP sites as "Not Secure"
+- **Features:** Required for modern browser features (geolocation, service workers, etc.)
+
+### Platform-Specific SSL
+
+<Tabs>
+  <Tab title="Netlify/Vercel/GitHub Pages">
+    **Automatic SSL** - No configuration needed!
+
+    These platforms automatically provision free SSL certificates from Let's Encrypt once your domain is configured.
+
+    - Certificate auto-renews every 90 days
+    - Supports custom domains
+    - Force HTTPS redirect (enabled by default)
+  </Tab>
+
+  <Tab title="Traditional Hosting">
+    **Via cPanel:**
+    1. Log in to cPanel
+    2. Go to **SSL/TLS Status**
+    3. Click **Run AutoSSL** (if available)
+    4. Or manually install Let's Encrypt certificate
+
+    **Via Let's Encrypt (manual):**
+    ```bash
+    # Install certbot
+    sudo apt-get install certbot
+
+    # Get certificate
+    sudo certbot certonly --webroot -w /var/www/html -d yoursite.com -d www.yoursite.com
+    ```
+
+    Many shared hosting providers now include free SSL certificates.
+  </Tab>
+
+  <Tab title="Cloudflare (Free CDN + SSL)">
+    Add your site to Cloudflare for free SSL and CDN:
+
+    <Steps>
+      <Step title="Add Site to Cloudflare">
+        1. Sign up at [cloudflare.com](https://cloudflare.com)
+        2. Add your website
+        3. Cloudflare scans your DNS records
+      </Step>
+
+      <Step title="Update Nameservers">
+        Change your domain's nameservers to Cloudflare's:
+        ```
+        ns1.cloudflare.com
+        ns2.cloudflare.com
+        ```
+      </Step>
+
+      <Step title="Enable SSL">
+        Go to **SSL/TLS** > **Overview**:
+        - Choose "Full" or "Flexible" encryption mode
+        - Cloudflare provides free SSL certificate
+      </Step>
+
+      <Step title="Additional Settings">
+        - Enable "Always Use HTTPS"
+        - Enable "Automatic HTTPS Rewrites"
+        - Set minimum TLS version to 1.2
+      </Step>
+    </Steps>
+
+    <Note>
+    Cloudflare adds a CDN layer, improving global loading speeds.
+    </Note>
+  </Tab>
+</Tabs>
+
+---
+
+## Performance Optimization
+
+Optimize your Coffetto website for faster loading and better user experience.
+
+### Image Optimization
+
+<Steps>
+  <Step title="Compress Images">
+    Reduce image file sizes without losing quality:
+
+    **Tools:**
+    - [TinyPNG](https://tinypng.com) - Online compression
+    - [Squoosh](https://squoosh.app) - Google's image optimizer
+    - [ImageOptim](https://imageoptim.com) - Mac app
+
+    **Command line:**
+    ```bash
+    # Install imageoptim-cli
+    npm install -g imageoptim-cli
+
+    # Optimize all images
+    imageoptim assets/img/**/*.{png,jpg,jpeg}
+    ```
+  </Step>
+
+  <Step title="Use Modern Formats">
+    Convert to WebP for 25-35% smaller file sizes:
+
+    ```bash
+    # Install cwebp
+    brew install webp  # macOS
+    sudo apt-get install webp  # Linux
+
+    # Convert images
+    cwebp -q 80 assets/img/logo.png -o assets/img/logo.webp
+    ```
+
+    Use with fallback in HTML:
+    ```html
+    <picture>
+      <source srcset="assets/img/logo.webp" type="image/webp">
+      <img src="assets/img/logo.png" alt="Coffetto Logo">
+    </picture>
+    ```
+  </Step>
+
+  <Step title="Lazy Loading">
+    Add lazy loading for images below the fold:
+
+    ```html
+    <img src="assets/img/product.jpg" alt="Product" loading="lazy">
+    ```
+  </Step>
+</Steps>
+
+### CSS/JavaScript Minification
+
+Reduce file sizes by removing whitespace and comments:
+
+<CodeGroup>
+```bash Manual Minification
+# Install minification tools
+npm install -g clean-css-cli terser
+
+# Minify CSS
+cleancss -o assets/css/styles.min.css assets/css/styles.css
+
+# Minify JavaScript
+terser assets/js/main.js -o assets/js/main.min.js -c -m
+
+# Update HTML to reference minified files
+# Change: <link rel="stylesheet" href="assets/css/styles.css">
+# To: <link rel="stylesheet" href="assets/css/styles.min.css">
+```
+
+```html Updated HTML References
+<!-- In index.html, update references -->
+<link rel="stylesheet" href="assets/css/styles.min.css">
+<script src="assets/js/main.min.js"></script>
+```
+</CodeGroup>
+
+<Note>
+Most modern hosting platforms (Netlify, Vercel) automatically minify assets if you enable it in settings.
+</Note>
+
+### Caching Strategy
+
+Configure browser caching with `.htaccess` (Apache servers):
+
+```apache
+# .htaccess file in root directory
+<IfModule mod_expires.c>
+  ExpiresActive On
+  
+  # Images
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  
+  # CSS and JavaScript
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  
+  # Fonts
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+```
+
+### Enable Gzip Compression
+
+Compress text-based files for faster transfer:
+
+```apache
+# .htaccess
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript
+</IfModule>
+```
+
+<Note>
+Netlify, Vercel, and GitHub Pages handle compression automatically - no configuration needed.
+</Note>
+
+---
+
+## Troubleshooting Common Issues
+
+### Issue: 404 Not Found
+
+**Problem:** Your site shows "404 Not Found" or "Page Not Found"
+
+**Solutions:**
+- Ensure `index.html` is in the correct directory (root or `public_html/`)
+- Check file name capitalization (case-sensitive on Linux servers)
+- Verify your hosting platform's publish directory setting
+- Clear your browser cache and try again
+
+### Issue: Broken Images/CSS
+
+**Problem:** Images don't load or styling is missing
+
+**Solutions:**
+- Check file paths in `index.html` - should be relative (`assets/img/logo.png`)
+- Verify folder structure is intact after upload
+- Check file permissions (644 for files, 755 for folders on Linux)
+- Look for case-sensitivity issues (`Assets/` vs `assets/`)
+
+**Test with browser DevTools:**
+```
+1. Open browser DevTools (F12)
+2. Go to Network tab
+3. Refresh page
+4. Look for red/failed requests
+5. Check the path of failed files
+```
+
+### Issue: Changes Not Appearing
+
+**Problem:** Updates don't show on the live site
+
+**Solutions:**
+- **Browser cache:** Hard refresh with `Ctrl+F5` (Windows) or `Cmd+Shift+R` (Mac)
+- **CDN cache:** Wait a few minutes or purge cache in platform dashboard
+- **Git deployment:** Ensure your changes were committed and pushed
+- **FTP upload:** Verify files were actually uploaded and overwrote old versions
+
+### Issue: Mixed Content Warnings
+
+**Problem:** Browser shows security warnings on HTTPS site
+
+**Solutions:**
+- Update all resource URLs to HTTPS or use protocol-relative URLs:
+  ```html
+  <!-- Before -->
+  <script src="http://example.com/script.js"></script>
+  
+  <!-- After -->
+  <script src="https://example.com/script.js"></script>
+  
+  <!-- Or protocol-relative -->
+  <script src="//example.com/script.js"></script>
+  ```
+- Check external resources (fonts, CDNs) use HTTPS
+
+### Issue: Slow Loading Times
+
+**Problem:** Website takes too long to load
+
+**Solutions:**
+- Optimize images (see Performance Optimization section)
+- Enable CDN through your hosting platform
+- Minify CSS/JavaScript files
+- Use lazy loading for images
+- Check your internet connection and test from different locations
+- Use tools like [PageSpeed Insights](https://pagespeed.web.dev/) to identify bottlenecks
+
+---
+
+## Deployment Checklist
+
+Before going live, ensure you've completed these steps:
+
+<Steps>
+  <Step title="Test Locally">
+    - [ ] All pages load correctly
+    - [ ] All images display properly
+    - [ ] Navigation works smoothly
+    - [ ] Forms function (if applicable)
+    - [ ] Mobile responsive design works
+    - [ ] Cross-browser testing (Chrome, Firefox, Safari, Edge)
+  </Step>
+
+  <Step title="Optimize Assets">
+    - [ ] Compress images
+    - [ ] Minify CSS and JavaScript (optional)
+    - [ ] Remove unused files/code
+    - [ ] Test performance with PageSpeed Insights
+  </Step>
+
+  <Step title="Configure Platform">
+    - [ ] Choose hosting platform
+    - [ ] Set up account
+    - [ ] Configure deployment settings
+    - [ ] Upload/deploy files
+  </Step>
+
+  <Step title="Domain & SSL">
+    - [ ] Configure custom domain (if using one)
+    - [ ] Verify HTTPS/SSL is enabled
+    - [ ] Test domain propagation
+    - [ ] Set up www redirect (if desired)
+  </Step>
+
+  <Step title="Final Verification">
+    - [ ] Test live site on desktop
+    - [ ] Test live site on mobile
+    - [ ] Check all links work
+    - [ ] Verify contact forms (if any)
+    - [ ] Test from different geographic locations
+    - [ ] Check browser console for errors
+  </Step>
+
+  <Step title="Post-Launch">
+    - [ ] Set up analytics (Google Analytics, Plausible, etc.)
+    - [ ] Submit sitemap to search engines
+    - [ ] Monitor performance and uptime
+    - [ ] Plan regular updates and maintenance
+  </Step>
+</Steps>
+
+---
+
+## Platform Comparison
+
+<Note>
+All pricing and features as of 2026. Check platform websites for current information.
+</Note>
+
+| Platform | Setup Time | Free Tier | Bandwidth | SSL | CDN | Best For |
+|----------|-----------|-----------|-----------|-----|-----|----------|
+| **GitHub Pages** | 5-10 min | Yes | 100GB/month | ✅ | ✅ | Open source, portfolios |
+| **Netlify** | 3-5 min | Yes | 100GB/month | ✅ | ✅ | Modern workflows, forms |
+| **Vercel** | 5-10 min | Yes | 100GB/month | ✅ | ✅ | Developer-focused projects |
+| **Traditional Hosting** | 10-15 min | No ($3-10/mo) | Varies | Varies | ❌ | Existing hosting plans |
+| **Cloudflare Pages** | 5 min | Yes | Unlimited | ✅ | ✅ | High-traffic sites |
+
+---
+
+## Next Steps
+
+After deploying your Coffetto website:
+
+1. **Monitor Performance:** Use tools like Google Analytics, PageSpeed Insights, or Vercel Analytics
+2. **Set Up Forms:** If your site has contact forms, configure form handling (Netlify Forms, Formspree, etc.)
+3. **SEO Optimization:** Add meta tags, sitemap, and submit to search engines
+4. **Regular Updates:** Keep content fresh and fix any issues that arise
+5. **Backup:** Regularly backup your files (Git makes this easy)
+
+<Note>
+Need help? Refer to the troubleshooting section above or visit the [Coffetto GitHub repository](https://github.com/yoelfh/web-cafe) for community support.
+</Note>
+
+---
+
+## Additional Resources
+
+- [GitHub Pages Documentation](https://docs.github.com/en/pages)
+- [Netlify Documentation](https://docs.netlify.com/)
+- [Vercel Documentation](https://vercel.com/docs)
+- [Let's Encrypt SSL Guide](https://letsencrypt.org/getting-started/)
+- [Web.dev Performance Guide](https://web.dev/performance/)
+- [MDN Web Docs - Deployment](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/Publishing_your_website)

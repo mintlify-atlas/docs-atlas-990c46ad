@@ -1,80 +1,250 @@
 ---
-title: "Quickstart"
-description: "Start building awesome documentation in minutes"
+title: Quickstart Guide
+description: Get Coffetto up and running in minutes with this step-by-step guide
 ---
 
-## Get started in three steps
+# Quickstart Guide
 
-Get your documentation site running locally and make your first customization.
+Get your Coffetto website up and running in just a few minutes. This guide will walk you through downloading, opening, and customizing your coffee shop website.
 
-### Step 1: Set up your local environment
+## Prerequisites
 
-<AccordionGroup>
-  <Accordion icon="copy" title="Clone your docs locally">
-    During the onboarding process, you created a GitHub repository with your docs content if you didn't already have one. You can find a link to this repository in your [dashboard](https://dashboard.mintlify.com).
+All you need is:
+- A modern web browser (Chrome, Firefox, Safari, or Edge)
+- A text editor (VS Code, Sublime Text, or any code editor)
+- Basic knowledge of HTML and CSS (helpful but not required)
+
+<Steps>
+  <Step title="Download Coffetto">
+    Clone or download the Coffetto repository to your local machine.
+
+    ```bash
+    git clone <repository-url>
+    cd coffetto
+    ```
+
+    Or simply download the ZIP file and extract it to your preferred location.
+  </Step>
+
+  <Step title="Open in Browser">
+    The simplest way to view Coffetto is to open the `index.html` file directly in your browser.
+
+    **Option 1: Direct Open**
+    - Navigate to the project folder
+    - Double-click `index.html`
+    - The website opens in your default browser
+
+    **Option 2: Local Server (Recommended)**
     
-    To clone the repository locally so that you can make and preview changes to your docs, follow the [Cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) guide in the GitHub docs.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Start the preview server">
-    1. Install the Mintlify CLI: `npm i -g mint`
-    2. Navigate to your docs directory and run: `mint dev`
-    3. Open `http://localhost:3000` to see your docs live!
+    For a better development experience, use a local server:
+
+    <CodeGroup>
+    ```bash Python
+    # Using Python 3
+    python -m http.server 8000
+    ```
+
+    ```bash Node.js
+    # Using npx (comes with Node.js)
+    npx serve
+    ```
+
+    ```bash PHP
+    # Using PHP
+    php -S localhost:8000
+    ```
+    </CodeGroup>
+
+    Then open `http://localhost:8000` in your browser.
+
+    <Tip>
+    Using a local server prevents CORS issues and provides a more production-like environment.
+    </Tip>
+  </Step>
+
+  <Step title="Customize Content">
+    Now it's time to make Coffetto your own! Here are the key areas to customize:
+
+    ### Update Brand Name
     
-    <Tip>Your preview updates automatically as you edit files.</Tip>
-  </Accordion>
-</AccordionGroup>
+    Replace "Coffetto" with your coffee shop name in `index.html`:
 
-### Step 2: Deploy your changes
+    ```html index.html
+    <a href="#" class="nav__logo">
+        <img src="assets/img/logo.png" alt="logo">
+        Coffetto  <!-- Change this to your brand name -->
+    </a>
+    ```
 
-<AccordionGroup>
-  <Accordion icon="github" title="Install our GitHub app">
-    Install the Mintlify GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
+    ### Edit Home Section
     
-    Our GitHub app automatically deploys your changes to your docs site, so you don't need to manage deployments yourself.
-</Accordion>
-<Accordion icon="palette" title="Update your site name and colors">
-    For a first change, let's update the name and colors of your docs site.
+    Update the hero section with your message:
 
-    1. Open `docs.json` in your editor.
-    2. Change the `"name"` field to your project name.
-    3. Update the `"colors"` to match your brand.
-    4. Save and see your changes instantly at `http://localhost:3000`.
+    ```html index.html
+    <h3 class="home__subtitle">
+        CALIDAD EXCEPCIONAL  <!-- Your tagline -->
+    </h3>
 
-    <Tip>Try changing the primary color to see an immediate difference!</Tip>
-  </Accordion>
-</AccordionGroup>
+    <h1 class="home__title">
+        Es hora de un <br>
+        buen café  <!-- Your main headline -->
+        <img src="assets/img/home-coffee-title.png" alt="home image">
+    </h1>
 
-### Step 3: Go live
+    <p class="home__description">
+        Cada grano de café selecto refleja nuestro 
+        compromiso con los cafetaleros peruanos...
+        <!-- Your brand description -->
+    </p>
+    ```
 
-<Accordion icon="rocket" title="Publish your docs">
-  1. Commit and push your changes.
-  2. Your docs will update and be live in moments!
-</Accordion>
+    ### Update Products
+    
+    Modify the product cards to showcase your offerings:
 
-## Next steps
+    ```html index.html
+    <article class="products__card">
+        <img src="assets/img/product-coffee-1.png" alt="products image" class="products__img">
+        <h3 class="products__name">Café clásico</h3>  <!-- Product name -->
+        <span class="products__price">S/17.90</span>   <!-- Product price -->
+    </article>
+    ```
 
-Now that you have your docs running, explore these key features:
+    <Note>
+    The template includes three product cards. You can duplicate or remove cards by copying/deleting the `<article class="products__card">` elements.
+    </Note>
+
+    ### Customize Navigation
+    
+    Update navigation labels to match your content:
+
+    ```html index.html
+    <li class="nav__item">
+        <a href="#home" class="nav__link active-link">
+            <i class="ri-home-5-fill"></i>
+            <span>Inicio</span>  <!-- Change navigation text -->
+        </a>
+    </li>
+    ```
+  </Step>
+
+  <Step title="Modify Colors & Styling">
+    Coffetto uses CSS custom properties for easy theming. All color variables are defined in `assets/css/styles.css`.
+
+    ### Color Variables
+    
+    Update the color scheme by modifying these variables in the `:root` selector:
+
+    ```css assets/css/styles.css
+    :root {
+      /* Primary colors */
+      --first-color: hsl(12, 32%, 22%);        /* Main dark brown */
+      --first-color-alt: hsl(12, 42%, 12%);    /* Darker variant */
+      --first-color-light: hsl(12, 24%, 32%);  /* Lighter variant */
+      --second-color: hsl(39, 62%, 65%);       /* Golden accent */
+      
+      /* Text colors */
+      --title-color: hsl(12, 12%, 16%);
+      --text-color: hsl(12, 12%, 32%);
+      --text-color-light: hsl(12, 8%, 48%);
+      --white-color: #fff;
+    }
+    ```
+
+    ### Typography
+    
+    Adjust font sizes using these variables:
+
+    ```css assets/css/styles.css
+    :root {
+      --body-font: "Poppins", sans-serif;
+      --second-font: "Pacifico", cursive;
+      --biggest-font-size: 2.75rem;
+      --big-font-size: 1.75rem;
+      --h1-font-size: 1.5rem;
+      --h2-font-size: 1.25rem;
+      --h3-font-size: 1rem;
+      --normal-font-size: .938rem;
+    }
+    ```
+
+    <Tip>
+    Changing the CSS variables in the `:root` selector will update colors and fonts throughout the entire website automatically.
+    </Tip>
+
+    ### Border Radius
+    
+    Customize the curved section borders:
+
+    ```css assets/css/styles.css
+    :root {
+      --border-section: 56px 56px 0 0;  /* Adjust for more/less curve */
+    }
+    ```
+  </Step>
+
+  <Step title="Add Your Images">
+    Replace the default images with your own coffee shop photos:
+
+    1. **Logo** - Replace `assets/img/logo.png` (28px × 28px recommended)
+    2. **Favicon** - Replace `assets/img/favicon.png` (16px × 16px or 32px × 32px)
+    3. **Hero Image** - Replace `assets/img/home-coffee.png` (550px wide recommended)
+    4. **Product Images** - Replace `assets/img/product-coffee-1.png`, `product-coffee-2.png`, `product-coffee-3.png`
+    5. **About Image** - Replace `assets/img/about-coffee.png` (550px wide recommended)
+    6. **Background** - Replace `assets/img/coffee-beans-bg.png` for section backgrounds
+
+    <Warning>
+    Keep the same file names when replacing images, or update the `src` attributes in `index.html` to match your new filenames.
+    </Warning>
+
+    ### Image Format Recommendations
+    
+    - Use **PNG** for images with transparency (logo, product images)
+    - Use **JPG** for photographs (about section, testimonial)
+    - Use **SVG** for icons and decorative elements (like `steps-curve-line.svg`)
+  </Step>
+</Steps>
+
+## Testing Your Changes
+
+After customizing, test your website:
+
+1. **Responsive Design** - Use browser DevTools to test different screen sizes
+2. **Scroll Effects** - Scroll through the page to verify animations work
+3. **Navigation** - Click navigation links to ensure smooth scrolling
+4. **Scroll-to-Top** - Scroll down and verify the scroll-up button appears
+
+<Tip>
+Press `F12` or `Cmd+Option+I` (Mac) to open browser DevTools and test responsive design at different breakpoints: 300px, 576px, 1023px, and 1248px.
+</Tip>
+
+## Next Steps
+
+Now that you have Coffetto running and customized:
 
 <CardGroup cols={2}>
-
-<Card title="Write Content" icon="pen-to-square" href="/essentials/markdown">
-  Learn MDX syntax and start writing your documentation.
-</Card>
-
-<Card title="Customize style" icon="palette" href="/essentials/settings">
-  Make your docs match your brand perfectly.
-</Card>
-
-<Card title="Add code examples" icon="square-code" href="/essentials/code">
-  Include syntax-highlighted code blocks.
-</Card>
-
-<Card title="API documentation" icon="code" href="/api-reference/introduction">
-  Auto-generate API docs from OpenAPI specs.
-</Card>
-
+  <Card title="Customize Design" icon="palette" href="/customization/colors-theming">
+    Learn advanced color customization and theming options
+  </Card>
+  
+  <Card title="Modify Layout" icon="layout" href="/customization/layout-configuration">
+    Adjust sections, add new content, and restructure the page
+  </Card>
+  
+  <Card title="JavaScript Features" icon="code" href="/components/javascript-features">
+    Understand and extend the interactive features
+  </Card>
+  
+  <Card title="Deploy Your Site" icon="rocket" href="/deployment/hosting-guide">
+    Deploy Coffetto to the web with various hosting options
+  </Card>
 </CardGroup>
 
-<Note>
-  **Need help?** See our [full documentation](https://mintlify.com/docs) or join our [community](https://mintlify.com/community).
-</Note>
+## Need Help?
+
+If you encounter any issues during setup:
+
+- Check that all files are in the correct directory structure
+- Verify image paths match your actual filenames
+- Make sure you're using a modern browser with JavaScript enabled
+- Try using a local server instead of opening the HTML file directly

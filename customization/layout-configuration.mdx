@@ -1,0 +1,469 @@
+---
+title: "Layout Configuration"
+description: "Customize Coffetto's layout structure, spacing, and responsive behavior to fit your design needs"
+---
+
+## Layout System Overview
+
+Coffetto uses a flexible layout system built with CSS Grid and modern responsive techniques. The layout adapts seamlessly from mobile (320px) to desktop (1248px+) viewports.
+
+## Core Layout Variables
+
+Key layout variables are defined in the `:root` selector (`styles.css:6-7`):
+
+```css
+--header-height: 3.5rem;                   /* Fixed header height */
+--border-section: 56px 56px 0 0;           /* Rounded top corners for sections */
+```
+
+## Container System
+
+The `.container` class (`styles.css:89-92`) defines the maximum content width:
+
+```css
+.container {
+  max-width: 1120px;                       /* Maximum content width */
+  margin-inline: 1.5rem;                   /* Side margins (mobile) */
+}
+```
+
+### Customizing Container Width
+
+<Tabs>
+  <Tab title="Wider Layout">
+    For a more spacious design:
+    ```css
+    .container {
+      max-width: 1320px;  /* Increased from 1120px */
+      margin-inline: 1.5rem;
+    }
+    ```
+  </Tab>
+  
+  <Tab title="Narrow Layout">
+    For a focused, article-style layout:
+    ```css
+    .container {
+      max-width: 960px;   /* Decreased from 1120px */
+      margin-inline: 1.5rem;
+    }
+    ```
+  </Tab>
+  
+  <Tab title="Full Width">
+    To remove maximum width constraint:
+    ```css
+    .container {
+      max-width: 100%;    /* Full width */
+      margin-inline: 2rem; /* Larger side padding */
+    }
+    ```
+  </Tab>
+</Tabs>
+
+<Note>
+  On larger screens (1152px+), the container centers automatically with `margin-inline: auto` (line 931).
+</Note>
+
+## Grid System
+
+The `.grid` utility class (`styles.css:94-97`) creates flexible grid layouts:
+
+```css
+.grid {
+  display: grid;
+  gap: 1.5rem;                             /* Space between grid items */
+}
+```
+
+### Adjusting Grid Spacing
+
+Change the gap value to adjust spacing throughout the site:
+
+```css
+.grid {
+  display: grid;
+  gap: 2rem;      /* More spacious */
+}
+
+/* Or for tighter spacing */
+.grid {
+  display: grid;
+  gap: 1rem;      /* More compact */
+}
+```
+
+## Section Spacing
+
+Section padding is defined in `.section` class (`styles.css:99-101`):
+
+```css
+.section {
+  padding-block: 4.5rem 3.5rem;           /* Top: 4.5rem, Bottom: 3.5rem */
+}
+```
+
+### Customizing Section Spacing
+
+<Steps>
+  <Step title="Locate the section class">
+    Find `.section` on line 99 of `styles.css`
+  </Step>
+  
+  <Step title="Adjust padding values">
+    Modify `padding-block` to change vertical spacing:
+    ```css
+    .section {
+      padding-block: 6rem 4rem;    /* More spacious */
+    }
+    /* Or */
+    .section {
+      padding-block: 3rem 2rem;    /* More compact */
+    }
+    ```
+  </Step>
+  
+  <Step title="Update desktop spacing">
+    Also update the desktop breakpoint (line 751-753):
+    ```css
+    @media screen and (min-width: 1023px) {
+      .section {
+        padding-block: 9rem 6rem;  /* Adjust desktop spacing */
+      }
+    }
+    ```
+  </Step>
+</Steps>
+
+## Border Radius Customization
+
+The `--border-section` variable controls rounded corners on section containers:
+
+```css
+--border-section: 56px 56px 0 0;          /* Top-left, Top-right, Bottom-right, Bottom-left */
+```
+
+### Examples
+
+<Tabs>
+  <Tab title="More Rounded">
+    ```css
+    :root {
+      --border-section: 80px 80px 0 0;     /* Larger radius */
+    }
+    
+    /* Desktop (update line 753) */
+    @media screen and (min-width: 1023px) {
+      .section {
+        --border-section: 120px 120px 0 0;
+      }
+    }
+    ```
+  </Tab>
+  
+  <Tab title="Subtle Curves">
+    ```css
+    :root {
+      --border-section: 24px 24px 0 0;     /* Smaller radius */
+    }
+    
+    @media screen and (min-width: 1023px) {
+      .section {
+        --border-section: 48px 48px 0 0;
+      }
+    }
+    ```
+  </Tab>
+  
+  <Tab title="Sharp Corners">
+    ```css
+    :root {
+      --border-section: 0 0 0 0;           /* No rounding */
+    }
+    ```
+  </Tab>
+  
+  <Tab title="All Corners Rounded">
+    ```css
+    :root {
+      --border-section: 56px;              /* All corners equal */
+    }
+    ```
+  </Tab>
+</Tabs>
+
+<Tip>
+  The border radius is applied to:
+  - Products section background (line 308)
+  - About section background (line 377)
+  - Steps section background (line 402)
+  - Testimonial section background (line 500)
+  - Footer background (line 529)
+</Tip>
+
+## Header Height Adjustment
+
+The `--header-height` variable controls the navigation bar height:
+
+```css
+--header-height: 3.5rem;                  /* 56px */
+```
+
+### Changing Header Height
+
+```css
+:root {
+  --header-height: 4rem;                   /* Taller header */
+}
+
+/* Desktop adjustment (line 757) */
+@media screen and (min-width: 1023px) {
+  .nav {
+    height: calc(var(--header-height) + 2.5rem);  /* Update offset */
+  }
+}
+```
+
+<Warning>
+  If you change the header height, also update:
+  - Navigation height calculation (line 757)
+  - Scroll-up button positioning if needed (line 688)
+</Warning>
+
+## Responsive Breakpoints
+
+Coffetto uses five main breakpoints:
+
+| Breakpoint | Width | Purpose |
+|------------|-------|----------|
+| Small | 300px | Very small devices |
+| Mobile | 400px | Small phones |
+| Tablet | 576px | Medium devices |
+| Desktop | 1023px | Laptops/desktops |
+| Large | 1248px | Large screens |
+
+### Modifying Breakpoints
+
+Locate the media queries in `styles.css` and adjust as needed:
+
+```css
+/* Line 693 - Very small devices */
+@media screen and (max-width: 300px) { }
+
+/* Line 726 - Small devices */
+@media screen and (min-width: 400px) { }
+
+/* Line 734 - Medium devices */
+@media screen and (min-width: 576px) { }
+
+/* Line 750 - Large devices */
+@media screen and (min-width: 1023px) { }
+
+/* Line 929 - Extra large */
+@media screen and (min-width: 1152px) { }
+
+/* Line 935 - Largest */
+@media screen and (min-width: 1248px) { }
+```
+
+## Rearranging Sections
+
+Sections appear in this order in `index.html`:
+
+1. **Header** (lines 20-61)
+2. **Home** (lines 66-93)
+3. **Products** (lines 96-134)
+4. **About** (lines 137-157)
+5. **Steps** (lines 160-221)
+6. **Testimonial** (lines 224-241)
+7. **Footer** (lines 245-295)
+
+### How to Reorder Sections
+
+<Steps>
+  <Step title="Identify section boundaries">
+    Each section is wrapped in a `<section>` tag with a unique ID and class
+  </Step>
+  
+  <Step title="Cut the entire section">
+    Copy the complete section HTML, including opening and closing tags
+  </Step>
+  
+  <Step title="Paste in new position">
+    Place it where you want within the `<main>` tag (lines 64-242)
+  </Step>
+  
+  <Step title="Update navigation links">
+    If the section has an ID, ensure navigation links (lines 30-58) still point to the correct `#id`
+  </Step>
+</Steps>
+
+<Warning>
+  Don't move sections outside the `<main>` tag. The header and footer should remain in their fixed positions.
+</Warning>
+
+## Adding New Sections
+
+To add a new section that matches Coffetto's design:
+
+```html
+<section class="your-section" id="your-section">
+  <div class="your-section__bg section">
+    <div class="your-section__container container grid">
+      <h2 class="section__title">
+        Your Section Title
+      </h2>
+      
+      <!-- Your content here -->
+      
+    </div>
+  </div>
+</section>
+```
+
+Then add corresponding CSS:
+
+```css
+.your-section {
+  background-color: var(--first-color);
+}
+
+.your-section__bg {
+  background-color: var(--white-color);
+  border-radius: var(--border-section);
+}
+
+.your-section__container {
+  row-gap: 3rem;
+}
+```
+
+## Removing Sections
+
+<Steps>
+  <Step title="Remove the HTML">
+    Delete the entire `<section>` block from `index.html`
+  </Step>
+  
+  <Step title="Remove navigation link">
+    If the section had a nav link (lines 30-58), remove the corresponding `<li>` item
+  </Step>
+  
+  <Step title="Remove CSS (optional)">
+    To keep file size small, remove unused CSS rules from `styles.css`
+  </Step>
+  
+  <Step title="Update ScrollReveal (optional)">
+    Check `assets/js/main.js` for any ScrollReveal animations targeting that section
+  </Step>
+</Steps>
+
+<Tip>
+  Sections you might commonly remove:
+  - **Products** (lines 96-134) - if not selling products
+  - **Steps** (lines 160-221) - if you don't need a process explanation
+  - **Testimonial** (lines 224-241) - if not using testimonials
+</Tip>
+
+## Specific Layout Configurations
+
+### Home Section Layout
+
+The home section uses a two-column grid on desktop (`styles.css:776-779`):
+
+```css
+.home__container {
+  grid-template-columns: max-content 440px;  /* Image, then content */
+  align-items: center;
+}
+```
+
+To make content wider:
+```css
+.home__container {
+  grid-template-columns: max-content 600px;  /* Wider content area */
+}
+```
+
+### Products Grid
+
+Products display in a 2-column grid on mobile (`styles.css:345-348`):
+
+```css
+.products__content {
+  grid-template-columns: repeat(2, 1fr);     /* 2 equal columns */
+  gap: 3.5rem 4.5rem;                        /* Row gap, column gap */
+}
+```
+
+To show 3 products per row on mobile:
+```css
+.products__content {
+  grid-template-columns: repeat(3, 1fr);     /* 3 columns */
+  gap: 2rem;                                 /* Adjust spacing */
+}
+```
+
+### Steps Layout
+
+On desktop, steps use a 3-column layout (`styles.css:823-826`):
+
+```css
+.steps__content {
+  grid-template-columns: repeat(3, max-content);
+  column-gap: 6.5rem;
+}
+```
+
+For 4 steps:
+```css
+.steps__content {
+  grid-template-columns: repeat(4, max-content);
+  column-gap: 4rem;                          /* Reduce gap for 4 items */
+}
+```
+
+## Maintaining Responsive Design
+
+<Warning>
+  When modifying layouts, always:
+  
+  1. **Test on mobile first** - The default styles are mobile-first
+  2. **Check all breakpoints** - Use browser DevTools responsive mode
+  3. **Preserve aspect ratios** - Don't break image proportions
+  4. **Test content overflow** - Ensure text doesn't break containers
+  5. **Verify touch targets** - Buttons should be at least 44x44px on mobile
+</Warning>
+
+<Tip>
+  **Quick responsive testing checklist:**
+  
+  - 320px (iPhone SE)
+  - 375px (iPhone standard)
+  - 768px (iPad portrait)
+  - 1024px (iPad landscape)
+  - 1920px (Desktop HD)
+</Tip>
+
+## Advanced: CSS Grid Areas
+
+For complex layouts, use CSS Grid areas:
+
+```css
+.custom__container {
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "sidebar content"
+    "footer footer";
+  grid-template-columns: 250px 1fr;
+  gap: 2rem;
+}
+
+.custom__header { grid-area: header; }
+.custom__sidebar { grid-area: sidebar; }
+.custom__content { grid-area: content; }
+.custom__footer { grid-area: footer; }
+```
+
+This gives you precise control over element positioning while maintaining responsiveness.

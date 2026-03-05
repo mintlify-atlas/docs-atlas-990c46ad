@@ -1,0 +1,707 @@
+---
+title: "Content Customization"
+description: "Update text, images, and content throughout your Coffetto website to match your brand and message"
+---
+
+## Overview
+
+Coffetto is currently in Spanish. This guide shows you how to customize all content including text, images, links, and brand information.
+
+<Note>
+  All content edits are made in `index.html`. The file is well-structured with HTML comments marking each section.
+</Note>
+
+## Brand Name & Logo
+
+### Updating the Brand Name
+
+The brand name "Coffetto" appears in three locations:
+
+<Steps>
+  <Step title="Header logo (line 26)">
+    ```html
+    <a href="#" class="nav__logo">
+      <img src="assets/img/logo.png" alt="logo">
+      YourBrandName  <!-- Change "Coffetto" here -->
+    </a>
+    ```
+  </Step>
+  
+  <Step title="Footer logo (line 254)">
+    ```html
+    <a href="#" class="footer__logo">
+      <img src="assets/img/logo.png" alt="logo">
+      YourBrandName  <!-- Change "Coffetto" here -->
+    </a>
+    ```
+  </Step>
+  
+  <Step title="Page title (line 16)">
+    ```html
+    <title>Your Coffee Shop - Your Tagline</title>
+    ```
+  </Step>
+</Steps>
+
+### Replacing the Logo Image
+
+<Steps>
+  <Step title="Prepare your logo">
+    - **Format**: PNG with transparency recommended
+    - **Size**: 28x28px (mobile), 32x32px (desktop)
+    - **File name**: Keep as `logo.png` or update references
+  </Step>
+  
+  <Step title="Replace the file">
+    Place your logo at `assets/img/logo.png`
+  </Step>
+  
+  <Step title="Update the favicon">
+    Also replace `assets/img/favicon.png` (line 8) with a 16x16px or 32x32px icon
+  </Step>
+</Steps>
+
+<Tip>
+  If your logo has different dimensions, update the CSS in `styles.css`:
+  - Line 158: `.nav__logo img { width: 28px; }`
+  - Line 561: `.footer__logo img { width: 28px; }`
+  - Line 761: Desktop version
+</Tip>
+
+## Hero Section (Home)
+
+The home section is your first impression, located at lines 66-93.
+
+### Subtitle (Line 69-71)
+
+```html
+<h3 class="home__subtitle">
+  EXCEPTIONAL QUALITY  <!-- Change to your tagline -->
+</h3>
+```
+
+### Main Title (Lines 73-78)
+
+```html
+<h1 class="home__title">
+  It's time for a <br>
+  good coffee  <!-- Your main headline -->
+  
+  <img src="assets/img/home-coffee-title.png" alt="home image">
+</h1>
+```
+
+<Note>
+  The `<br>` tag creates a line break. Adjust placement based on your headline length.
+</Note>
+
+### Description (Lines 80-84)
+
+```html
+<p class="home__description">
+  Each selected coffee bean reflects our 
+  commitment to Peruvian coffee farmers, 
+  who bring the best selected coffee to your table.
+</p>
+```
+
+### Call-to-Action Button (Lines 86-88)
+
+```html
+<a href="#" class="button">
+  Get Started <i class="ri-arrow-right-s-line"></i>
+</a>
+```
+
+Change the text and link:
+```html
+<a href="#products" class="button">  <!-- Link to products section -->
+  Shop Now <i class="ri-arrow-right-s-line"></i>
+</a>
+```
+
+### Hero Image (Line 91)
+
+```html
+<img src="assets/img/home-coffee.png" alt="home image" class="home__img">
+```
+
+**Recommended dimensions**: 320x320px (mobile), 550x550px (desktop)
+
+<Warning>
+  Use PNG format with transparency for best results. Images should be optimized for web (under 200KB).
+</Warning>
+
+## Products Section
+
+Located at lines 96-134, this section showcases your offerings.
+
+### Section Description (Lines 104-110)
+
+```html
+<p class="products__description">
+  We strive to form deep partnerships 
+  with farmers around the world to create 
+  perspective together and form healthy 
+  working relationships based on trust and respect.
+</p>
+```
+
+### Product Cards
+
+Each product has this structure (example: lines 114-118):
+
+```html
+<article class="products__card">
+  <img src="assets/img/product-coffee-1.png" alt="products image" class="products__img">
+  <h3 class="products__name">Classic Coffee</h3>
+  <span class="products__price">S/17.90</span>  <!-- S/ is Peruvian Sol -->
+</article>
+```
+
+### Customizing Products
+
+<Tabs>
+  <Tab title="Edit Existing">
+    Replace the content in each product card:
+    ```html
+    <article class="products__card">
+      <img src="assets/img/your-product.png" alt="product name" class="products__img">
+      <h3 class="products__name">Your Product Name</h3>
+      <span class="products__price">$12.99</span>  <!-- Use your currency -->
+    </article>
+    ```
+  </Tab>
+  
+  <Tab title="Add More Products">
+    Copy an entire `<article>` block and paste it within the `.products__content` div:
+    ```html
+    <article class="products__card">
+      <img src="assets/img/product-coffee-4.png" alt="new product" class="products__img">
+      <h3 class="products__name">New Product</h3>
+      <span class="products__price">$15.99</span>
+    </article>
+    ```
+  </Tab>
+  
+  <Tab title="Remove Products">
+    Delete the entire `<article>` block for any product you don't want
+  </Tab>
+</Tabs>
+
+**Product image dimensions**: 120x120px (mobile), scales up on desktop
+
+<Tip>
+  If you add more than 3 products, consider adjusting the grid layout. See [Layout Configuration](/customization/layout-configuration#products-grid).
+</Tip>
+
+## About Section
+
+Located at lines 137-157, tells your brand story.
+
+### Section Title (Lines 141-143)
+
+```html
+<h2 class="section__title">
+  Our Story
+</h2>
+```
+
+### About Description (Lines 145-151)
+
+```html
+<p class="about__description">
+  We craft and grow the best coffee in Peru, 
+  accompanying families since 1930, with professional 
+  workers who harvest, collect and select coffee 
+  with quality work, thus providing an exquisite 
+  coffee to enjoy together as a family.
+</p>
+```
+
+**Tips for writing about content**:
+- Keep it personal and authentic
+- Highlight what makes you unique
+- Include your founding year or heritage
+- Mention quality standards or certifications
+
+### About Image (Line 154)
+
+```html
+<img src="assets/img/about-coffee.png" alt="about image" class="about__img">
+```
+
+**Recommended dimensions**: 320x320px (mobile), 550x550px (desktop)
+
+## Steps/Process Section
+
+Located at lines 160-221, explains your process or workflow.
+
+### Section Title (Lines 162-164)
+
+```html
+<h2 class="section__title">
+  Manufacturing steps of our products
+</h2>
+```
+
+### Individual Steps
+
+Each step has this structure (example: lines 172-186):
+
+```html
+<div class="steps__card">
+  <div class="steps__circle">
+    <div class="steps__subcircle">
+      01  <!-- Step number -->
+    </div>
+    
+    <img src="assets/img/steps-green-coffee.png" alt="steps image" class="steps__img">
+  </div>
+  
+  <p class="steps__description">
+    The harvest occurs annually when the coffee 
+    beans reach maturity and are collected for processing.
+  </p>
+</div>
+```
+
+### Customizing Steps
+
+<Steps>
+  <Step title="Update step numbers">
+    Change the numbers in `.steps__subcircle` (lines 175, 190, 205)
+  </Step>
+  
+  <Step title="Replace step images">
+    **Dimensions**: 120x120px (mobile), 210x210px (desktop)
+    Use PNG with transparency
+  </Step>
+  
+  <Step title="Edit descriptions">
+    Update the text in `.steps__description` for each step
+  </Step>
+  
+  <Step title="Add or remove steps">
+    Copy/delete entire `.steps__card` blocks. Update layout if adding more than 3 steps.
+  </Step>
+</Steps>
+
+<Warning>
+  The second step (lines 188-201) has class `steps__card-move` which positions it differently on desktop. Keep this class on the middle step for proper alignment.
+</Warning>
+
+## Testimonial Section
+
+Located at lines 224-241.
+
+### Testimonial Quote (Lines 228-231)
+
+```html
+<h2 class="section__title">
+  Coffee is the best beverage in the
+  morning, it keeps you focused.
+</h2>
+```
+
+### Author Name (Lines 233-235)
+
+```html
+<span class="testimonial__name">
+  John Doe
+</span>
+```
+
+### Testimonial Image (Line 238)
+
+```html
+<img src="assets/img/testimonial-coffee.png" alt="testimonial image" class="testimonial__img">
+```
+
+**Recommended dimensions**: 320x320px (mobile), 550x550px (desktop)
+
+<Tip>
+  For multiple testimonials, consider implementing a slider using JavaScript or a library like Swiper.js.
+</Tip>
+
+## Footer Content
+
+Located at lines 245-295.
+
+### Newsletter Section
+
+#### Title (Lines 257-259)
+
+```html
+<h3 class="footer__title">
+  Sign up for our newsletter
+</h3>
+```
+
+#### Form (Lines 262-267)
+
+```html
+<form action="" class="footer__form grid">  <!-- Add your form action -->
+  <input type="email" placeholder="Enter your email" class="footer__input">
+  
+  <button class="button footer__button" type="submit">
+    Subscribe <i class="ri-arrow-right-s-line"></i>
+  </button>
+</form>
+```
+
+<Note>
+  To make the newsletter functional, add a form handler service like:
+  - Mailchimp
+  - ConvertKit  
+  - EmailOctopus
+  - Custom backend API
+  
+  Update the `action` attribute with your form endpoint.
+</Note>
+
+#### Privacy Policy Text (Lines 269-272)
+
+```html
+<p class="footer__description">
+  We care about your data. Read our
+  <a href="#" class="footer__privacy">privacy policy</a>
+</p>
+```
+
+### Social Media Links
+
+Located at lines 277-287:
+
+```html
+<div class="footer__social">
+  <a href="https://www.facebook.com/" target="_blank" class="footer__social-link">
+    <i class="ri-facebook-fill"></i>
+  </a>
+  <a href="https://www.instagram.com/" target="_blank" class="footer__social-link">
+    <i class="ri-instagram-fill"></i>
+  </a>
+  <a href="https://twitter.com/" target="_blank" class="footer__social-link">
+    <i class="ri-twitter-fill"></i>
+  </a>
+</div>
+```
+
+**Update with your actual social media URLs**:
+
+```html
+<a href="https://www.facebook.com/yourbrand" target="_blank" class="footer__social-link">
+  <i class="ri-facebook-fill"></i>
+</a>
+```
+
+<Tip>
+  Available RemixIcon social icons:
+  - `ri-facebook-fill`
+  - `ri-instagram-fill`
+  - `ri-twitter-fill` (X)
+  - `ri-linkedin-fill`
+  - `ri-youtube-fill`
+  - `ri-tiktok-fill`
+  - `ri-pinterest-fill`
+  
+  Browse all icons at [RemixIcon](https://remixicon.com/).
+</Tip>
+
+### Copyright Text (Lines 289-291)
+
+```html
+<span class="footer__copy">
+  &#169; Copyright YoelFH. All rights reserved.
+</span>
+```
+
+Update to:
+```html
+<span class="footer__copy">
+  &#169; Copyright 2024 YourBrand. All rights reserved.
+</span>
+```
+
+## Navigation Menu
+
+Located at lines 30-58.
+
+### Navigation Structure
+
+```html
+<li class="nav__item">
+  <a href="#home" class="nav__link active-link">
+    <i class="ri-home-5-fill"></i>
+    <span>Home</span>  <!-- Change Spanish to English -->
+  </a>
+</li>
+```
+
+Current menu items (in Spanish):
+1. **Inicio** (Home) - line 34
+2. **Acerca de** (About) - line 41  
+3. **Pasos** (Steps) - line 48
+4. **Testimonio** (Testimonial) - line 55
+
+### Translating Navigation to English
+
+<Tabs>
+  <Tab title="Home">
+    ```html
+    <span>Home</span>
+    ```
+  </Tab>
+  
+  <Tab title="About">
+    ```html
+    <span>About</span>
+    ```
+  </Tab>
+  
+  <Tab title="Steps">
+    ```html
+    <span>Process</span>
+    ```
+    Or `<span>How It Works</span>`
+  </Tab>
+  
+  <Tab title="Testimonial">
+    ```html
+    <span>Reviews</span>
+    ```
+    Or `<span>Testimonials</span>`
+  </Tab>
+</Tabs>
+
+### Adding Navigation Items
+
+To add a new navigation link:
+
+```html
+<li class="nav__item">
+  <a href="#products" class="nav__link">
+    <i class="ri-shopping-bag-fill"></i>
+    <span>Shop</span>
+  </a>
+</li>
+```
+
+<Warning>
+  On mobile, navigation icons appear. Choose appropriate RemixIcons for new items to maintain visual consistency.
+</Warning>
+
+## Image Replacement Guide
+
+### Image Specifications
+
+| Location | Element | Recommended Size | Format |
+|----------|---------|------------------|--------|
+| Logo | Header/Footer | 28-32px square | PNG (transparent) |
+| Favicon | Browser tab | 16x16 or 32x32px | PNG/ICO |
+| Hero image | Home section | 320-550px | PNG (transparent) |
+| Hero title image | Home title | 80-120px | PNG (transparent) |
+| Product images | Products | 120px square | PNG (transparent) |
+| About image | About section | 320-550px | PNG/JPG |
+| Step images | Steps | 120-210px | PNG (transparent) |
+| Testimonial | Testimonial | 320-550px | PNG/JPG |
+| Background beans | Footer/Steps | Variable | PNG (transparent) |
+
+### Optimization Tips
+
+<Steps>
+  <Step title="Compress images">
+    Use tools like TinyPNG, ImageOptim, or Squoosh to reduce file size without quality loss
+  </Step>
+  
+  <Step title="Use appropriate formats">
+    - **PNG**: For images with transparency (logos, product images)
+    - **JPG**: For photographs without transparency
+    - **WebP**: Modern format for better compression (with JPG/PNG fallback)
+  </Step>
+  
+  <Step title="Provide retina versions">
+    For crisp display on high-DPI screens, export @2x versions at double dimensions
+  </Step>
+  
+  <Step title="Update alt text">
+    Always include descriptive alt text for accessibility
+  </Step>
+</Steps>
+
+## Language Translation
+
+Coffetto is currently in Spanish. To translate completely:
+
+### Complete Translation Checklist
+
+<Steps>
+  <Step title="Page title & meta">
+    Line 16: `<title>` tag
+  </Step>
+  
+  <Step title="Navigation menu">
+    Lines 34, 41, 48, 55: Nav labels
+  </Step>
+  
+  <Step title="Home section">
+    Lines 69-88: Subtitle, title, description, button
+  </Step>
+  
+  <Step title="Products section">
+    Lines 101-130: Button text, description, product names, prices
+  </Step>
+  
+  <Step title="About section">
+    Lines 141-151: Title and description
+  </Step>
+  
+  <Step title="Steps section">
+    Lines 162-217: Title and all step descriptions
+  </Step>
+  
+  <Step title="Testimonial section">
+    Lines 228-235: Quote and author name
+  </Step>
+  
+  <Step title="Footer">
+    Lines 257-291: Newsletter title, form placeholder, button, privacy text, copyright
+  </Step>
+</Steps>
+
+### Example: Products Section Translation
+
+**Before (Spanish)**:
+```html
+<h3 class="products__name">Café clásico</h3>
+<span class="products__price">S/17.90</span>
+```
+
+**After (English)**:
+```html
+<h3 class="products__name">Classic Coffee</h3>
+<span class="products__price">$17.90</span>
+```
+
+<Note>
+  Currency symbols to update:
+  - **S/** (Peruvian Sol) → **$** (USD), **£** (GBP), **€** (EUR), etc.
+  - Update in all three product cards (lines 117, 123, 129)
+</Note>
+
+## Dynamic Content Integration
+
+To connect Coffetto to a CMS or backend:
+
+### Using Template Variables
+
+Replace static content with template syntax (depends on your framework):
+
+<Tabs>
+  <Tab title="Handlebars">
+    ```html
+    <h1 class="home__title">
+      {{ heroTitle }}
+    </h1>
+    ```
+  </Tab>
+  
+  <Tab title="EJS">
+    ```html
+    <h1 class="home__title">
+      <%= heroTitle %>
+    </h1>
+    ```
+  </Tab>
+  
+  <Tab title="React">
+    ```jsx
+    <h1 className="home__title">
+      {heroTitle}
+    </h1>
+    ```
+  </Tab>
+  
+  <Tab title="Vue">
+    ```html
+    <h1 class="home__title">
+      {{ heroTitle }}
+    </h1>
+    ```
+  </Tab>
+</Tabs>
+
+### Products from Database
+
+Example using a loop (pseudo-code):
+
+```html
+<div class="products__content">
+  {% for product in products %}
+    <article class="products__card">
+      <img src="{{ product.image }}" alt="{{ product.name }}" class="products__img">
+      <h3 class="products__name">{{ product.name }}</h3>
+      <span class="products__price">{{ product.price }}</span>
+    </article>
+  {% endfor %}
+</div>
+```
+
+<Tip>
+  Popular headless CMS options that work well with static sites:
+  - **Contentful**
+  - **Sanity**
+  - **Strapi**
+  - **Prismic**
+  - **Netlify CMS**
+</Tip>
+
+## SEO Metadata
+
+Add meta tags in the `<head>` section for better SEO:
+
+```html
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Your coffee shop description for search engines">
+  <meta name="keywords" content="coffee, specialty coffee, artisan roasting">
+  <meta name="author" content="Your Brand Name">
+  
+  <!-- Open Graph for social sharing -->
+  <meta property="og:title" content="Your Coffee Shop Name">
+  <meta property="og:description" content="Crafting exceptional coffee since...">
+  <meta property="og:image" content="https://yoursite.com/og-image.jpg">
+  <meta property="og:url" content="https://yoursite.com">
+  
+  <!-- Existing content -->
+  <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+  <!-- ... -->
+</head>
+```
+
+## Content Best Practices
+
+<Tip>
+  **Writing effective content:**
+  
+  1. **Be concise** - Mobile users scan quickly
+  2. **Use active voice** - "We roast" vs "Coffee is roasted"
+  3. **Show personality** - Let your brand voice shine
+  4. **Include keywords** - Naturally incorporate SEO terms
+  5. **Add calls-to-action** - Guide users to next steps
+  6. **Update regularly** - Keep testimonials and products current
+  7. **Proofread** - Check spelling and grammar
+  8. **Test readability** - Use tools like Hemingway Editor
+</Tip>
+
+<Warning>
+  **Common mistakes to avoid:**
+  
+  - Using Lorem Ipsum placeholder text in production
+  - Breaking HTML structure when editing
+  - Forgetting to update alt text on images
+  - Leaving default social media links
+  - Using images that are too large (slow loading)
+  - Inconsistent tone between sections
+</Warning>

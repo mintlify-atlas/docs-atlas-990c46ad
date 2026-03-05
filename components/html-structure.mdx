@@ -1,0 +1,504 @@
+---
+title: 'HTML Structure'
+description: 'Complete breakdown of the Coffetto HTML structure, semantic elements, and markup patterns'
+---
+
+## Overview
+
+The Coffetto website uses semantic HTML5 elements with a well-organized structure. The HTML is written in Spanish ("Sitio web de café receptivo - YoelFH") and features a single-page layout with smooth scrolling navigation.
+
+### Key Features
+- Semantic HTML5 elements (`<header>`, `<nav>`, `<main>`, `<section>`, `<footer>`)
+- Fixed header with bottom navigation on mobile
+- Single-page architecture with section-based navigation
+- Remixicon integration for icons
+- ScrollReveal library for animations
+
+---
+
+## Document Head
+
+The document head includes essential meta tags and external resources:
+
+```html
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--=============== FAVICON ===============-->
+    <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+
+    <!--=============== REMIXICONS ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <title>Sitio web de café receptivo - YoelFH</title>
+</head>
+```
+
+<Note>
+  The viewport meta tag ensures proper responsive behavior across devices, while Remixicon provides a comprehensive icon library for the UI.
+</Note>
+
+---
+
+## Header & Navigation
+
+The header is fixed at the top of the page with a distinctive border element:
+
+```html index.html
+<header class="header" id="header">
+    <div class="header__border"></div>
+
+    <nav class="nav container">
+        <a href="#" class="nav__logo">
+            <img src="assets/img/logo.png" alt="logo">
+            Coffetto
+        </a>
+
+        <div class="nav__menu">
+            <ul class="nav__list">
+                <li class="nav__item">
+                    <a href="#home" class="nav__link active-link">
+                        <i class="ri-home-5-fill"></i>
+                        <span>Inicio</span>
+                    </a>
+                </li>
+
+                <li class="nav__item">
+                    <a href="#about" class="nav__link">
+                        <i class="ri-award-fill"></i>
+                        <span>Acerca de</span>
+                    </a>
+                </li>
+
+                <li class="nav__item">
+                    <a href="#steps" class="nav__link">
+                        <i class="ri-compass-3-fill"></i>
+                        <span>Pasos</span>
+                    </a>
+                </li>
+
+                <li class="nav__item">
+                    <a href="#testimonial" class="nav__link">
+                        <i class="ri-message-3-fill"></i>
+                        <span>Testimonio</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+```
+
+### Navigation Structure
+
+<Accordion title="Header Components Breakdown">
+  - **`header__border`**: Decorative 2px gradient border at the bottom of the header
+  - **`nav__logo`**: Logo with image and text combination
+  - **`nav__menu`**: Navigation menu (positioned at bottom on mobile)
+  - **`nav__list`**: Unordered list of navigation items
+  - **`nav__link`**: Each link contains an icon and text span
+  - **`active-link`**: Class added to highlight the current section
+</Accordion>
+
+<Note>
+  The navigation uses anchor links (`#home`, `#about`, etc.) that scroll to corresponding sections. JavaScript handles the active state highlighting.
+</Note>
+
+---
+
+## Home Section
+
+The hero section features a gradient background, headline with embedded image, and call-to-action button:
+
+```html index.html
+<section class="home section" id="home">
+    <div class="home__container container grid">
+        <div class="home__data">
+            <h3 class="home__subtitle">
+                CALIDAD EXCEPCIONAL
+            </h3>
+
+            <h1 class="home__title">
+                Es hora de un <br>
+                buen café
+
+                <img src="assets/img/home-coffee-title.png"  alt="home image">
+            </h1>
+
+            <p class="home__description">
+                Cada grano de café selecto refleja nuestro 
+                compromiso con los cafetaleros peruanos, 
+                quienes llevan el mejor café selecto a su mesa.
+            </p>
+
+            <a href="#" class="button">
+                Empezar <i class="ri-arrow-right-s-line"></i>
+            </a>
+        </div>
+
+        <img src="assets/img/home-coffee.png" alt="home image" class="home__img">
+    </div>
+</section>
+```
+
+### Layout Pattern
+- **Grid container**: Uses CSS Grid for two-column layout (text + image)
+- **Image in title**: A decorative coffee cup image is positioned absolutely within the h1
+- **CTA button**: Reusable `.button` class with icon
+
+---
+
+## Products Section
+
+Displays three coffee products in a card-based grid layout:
+
+```html index.html
+<section class="products">
+    <div class="products__bg section">
+        <div class="products__container container grid">
+            <div class="products__data">
+                <a href="#about" class="products__button">
+                    Desplazar abajo <i class="ri-arrow-down-s-line"></i>
+                </a>
+
+                <p class="products__description">
+                    Nos esforzamos por formar asociaciones 
+                    profundas con agricultores de todo el 
+                    mundo para crear una perspectiva juntos 
+                    y formar relaciones de trabajo saludables 
+                    basadas en la confianza y el respeto.
+                </p>
+            </div>
+
+            <div class="products__content">
+                <article class="products__card">
+                    <img src="assets/img/product-coffee-1.png" alt="products image" class="products__img">
+                    <h3 class="products__name">Café clásico</h3>
+                    <span class="products__price">S/17.90</span>
+                </article>
+                
+                <article class="products__card">
+                    <img src="assets/img/product-coffee-2.png" alt="products image" class="products__img">
+                    <h3 class="products__name">Café negro</h3>
+                    <span class="products__price">S/24.90</span>
+                </article>
+
+                <article class="products__card">
+                    <img src="assets/img/product-coffee-3.png" alt="products image" class="products__img">
+                    <h3 class="products__name">Café fuerte</h3>
+                    <span class="products__price">S/32.90</span>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+```
+
+<Tabs>
+  <Tab title="Structure">
+    Each product card follows the same pattern:
+    - `<article>` wrapper with `products__card` class
+    - Product image
+    - Product name (`<h3>`)
+    - Price (`<span>`) in Peruvian Soles (S/)
+  </Tab>
+  <Tab title="Styling Hooks">
+    - `products__bg`: Background wrapper with border-radius
+    - `products__content`: Grid container for cards
+    - `products__img`: Hover effects applied via CSS
+  </Tab>
+</Tabs>
+
+---
+
+## About Section
+
+A two-column layout telling the brand story:
+
+```html index.html
+<section class="about" id="about">
+    <div class="about__bg section">
+        <div class="about__container container grid">
+            <div class="about__data">
+                <h2 class="section__title">
+                    Nuestra Historia
+                </h2>
+
+                <p class="about__description">
+                    Elaboramos y cultivamos el mejor café del Perú, 
+                    acompañando a las familias desde 1930, con trabajadores 
+                    profesionales que cosechan, recolectan y seleccionan el 
+                    café con trabajo de calidad, brindando así un café 
+                    exquisito para disfrutar juntos en familia.
+                </p>
+            </div>
+
+            <img src="assets/img/about-coffee.png" alt="about image" class="about__img">
+        </div>
+    </div>
+</section>
+```
+
+<Note>
+  The `section__title` class is a reusable utility class used across multiple sections for consistent typography.
+</Note>
+
+---
+
+## Steps Section
+
+A process visualization showing three manufacturing steps with decorative elements:
+
+```html index.html
+<section class="steps" id="steps">
+    <div class="steps__bg section">
+        <h2 class="section__title">
+            Pasos de fabricación de nuestros productos
+        </h2>
+
+        <div class="steps__container container grid">
+            <img src="assets/img/coffee-beans-bg.png" alt="steps image" class="steps__bg-img">
+
+            <div class="steps__content">
+                <img src="assets/img/steps-curve-line.svg" alt="steps image" class="steps__border">
+
+                <div class="steps__card">
+                    <div class="steps__circle">
+                        <div class="steps__subcircle">
+                            01
+                        </div>
+
+                        <img src="assets/img/steps-green-coffee.png" alt="steps image" class="steps__img">
+                    </div>
+
+                    <p class="steps__description">
+                        La cosecha ocurre anualmente cuando los granos 
+                        de café alcanzan la madurez y se recolectan para 
+                        su procesamiento.
+                    </p>
+                </div>
+
+                <div class="steps__card steps__card-move">
+                    <div class="steps__circle">
+                        <div class="steps__subcircle">
+                            02
+                        </div>
+
+                        <img src="assets/img/steps-coffee-beans.png" alt="steps image" class="steps__img">
+                    </div>
+
+                    <p class="steps__description">
+                        Los granos se secan mediante técnica húmeda o seca, 
+                        según el sabor que queramos obtener.
+                    </p>
+                </div>
+
+                <div class="steps__card">
+                    <div class="steps__circle">
+                        <div class="steps__subcircle">
+                            03
+                        </div>
+
+                        <img src="assets/img/steps-ground-coffee.png" alt="steps image" class="steps__img">
+                    </div>
+
+                    <p class="steps__description">
+                        El café está asado y adquiere
+                        su sabor procesando el grano
+                        en hornos.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+```
+
+### Visual Hierarchy
+
+<Accordion title="Step Card Components">
+  - **`steps__circle`**: Large circular container (150px × 150px on mobile)
+  - **`steps__subcircle`**: Numbered badge positioned at top-left
+  - **`steps__img`**: Coffee product image inside the circle
+  - **`steps__description`**: Process description below the circle
+  - **`steps__border`**: SVG curve connecting the steps
+  - **`steps__bg-img`**: Background coffee beans image with opacity
+  - **`steps__card-move`**: Middle card has special positioning (margin-left: auto)
+</Accordion>
+
+---
+
+## Testimonial Section
+
+A simple testimonial with quote and author:
+
+```html index.html
+<section class="testimonial" id="testimonial">
+    <div class="testimonial__bg section">
+        <div class="testimonial__container container grid">
+            <div class="testimonial__data">
+                <h2 class="section__title">
+                    El café es la mejor bebida en la
+                    mañana, te mantiene enfocado.
+                </h2>
+
+                <span class="testimonial__name">
+                    Jhon Doe
+                </span>
+            </div>
+
+            <img src="assets/img/testimonial-coffee.png" alt="testimonial image" class="testimonial__img">
+        </div>
+    </div>
+</section>
+```
+
+---
+
+## Footer
+
+Comprehensive footer with newsletter signup, social links, and legal information:
+
+```html index.html
+<footer class="footer">
+    <div class="footer__bg">
+        <img src="assets/img/coffee-beans-bg.png" alt="footer image" class="footer__bg-img">
+
+        <div class="footer__container container grid">
+            <div class="footer__data grid">
+                <div>
+                    <a href="#" class="footer__logo">
+                        <img src="assets/img/logo.png" alt="logo">
+                        Coffetto
+                    </a>
+
+                    <h3 class="footer__title">
+                        Regístrese para nuestro boletín
+                    </h3>
+                </div>
+
+                <form action="" class="footer__form grid">
+                    <input type="email" placeholder="Introduzca su correo electrónico" class="footer__input">
+
+                    <button class="button footer__button" type="submit">
+                        Suscribir <i class="ri-arrow-right-s-line"></i>
+                    </button>
+
+                    <p class="footer__description">
+                        Nos preocupamos por sus datos. Leer nuestro
+                        <a href="#" class="footer__privacy">política de privacidad</a>
+                    </p>
+                </form>
+            </div>
+
+            <div class="footer__content grid">
+                <div class="footer__social">
+                    <a href="https://www.facebook.com/" target="_blank" class="footer__social-link">
+                        <i class="ri-facebook-fill"></i>
+                    </a>
+                    <a href="https://www.instagram.com/" target="_blank" class="footer__social-link">
+                        <i class="ri-instagram-fill"></i>
+                    </a>
+                    <a href="https://twitter.com/" target="_blank" class="footer__social-link">
+                        <i class="ri-twitter-fill"></i>
+                    </a>
+                </div>
+
+                <span class="footer__copy">
+                    &#169; Copyright YoelFH. Todos los derechos reservados.
+                </span>
+            </div>
+        </div>
+    </div>
+</footer>
+```
+
+<Tabs>
+  <Tab title="Newsletter Form">
+    - Email input with transparent background and border
+    - Submit button using the global `.button` class
+    - Privacy policy link with hover underline effect
+  </Tab>
+  <Tab title="Social Links">
+    - Facebook, Instagram, and Twitter icons
+    - `target="_blank"` for external links
+    - Remixicon fill variants for solid icons
+  </Tab>
+</Tabs>
+
+---
+
+## Scroll-to-Top Button
+
+A fixed button that appears when scrolling down:
+
+```html index.html
+<a href="#" class="scrollup" id="scroll-up">
+    <i class="ri-arrow-up-line"></i>
+</a>
+```
+
+<Note>
+  This button is controlled by the `scrollUp()` JavaScript function and receives the `show-scroll` class when the user scrolls beyond 350px.
+</Note>
+
+---
+
+## Class Naming Convention
+
+Coffetto follows the **BEM-like** naming pattern:
+
+- **Block**: `.home`, `.products`, `.footer`
+- **Element**: `.home__container`, `.nav__link`, `.footer__social-link`
+- **Modifier**: `.active-link`, `.steps__card-move`, `.scroll-header`
+
+### Common Utility Classes
+
+| Class | Purpose |
+|-------|--------|
+| `.container` | Max-width wrapper (1120px) with horizontal margin |
+| `.grid` | Display grid with 1.5rem gap |
+| `.section` | Vertical padding (4.5rem top, 3.5rem bottom) |
+| `.section__title` | Large decorative title using Pacifico font |
+| `.button` | Primary CTA button with icon |
+
+---
+
+## Script Loading
+
+Scripts are loaded at the end of the body for optimal performance:
+
+```html
+<!--=============== SCROLLREVEAL ===============-->
+<script src="assets/js/scrollreveal.min.js"></script>
+
+<!--=============== MAIN JS ===============-->
+<script src="assets/js/main.js"></script>
+```
+
+<Note>
+  ScrollReveal library must load before `main.js` since the main script depends on the `ScrollReveal` object being available.
+</Note>
+
+---
+
+## Semantic HTML Summary
+
+The structure uses appropriate semantic elements:
+
+- `<header>` - Site header with navigation
+- `<nav>` - Navigation wrapper
+- `<main>` - Main content container
+- `<section>` - Distinct content sections (home, products, about, steps, testimonial)
+- `<article>` - Self-contained product cards
+- `<footer>` - Site footer
+
+This semantic approach improves accessibility, SEO, and code maintainability.
+
+<Note>
+  All sections have unique `id` attributes matching the navigation anchor links, enabling smooth scroll navigation and active link highlighting.
+</Note>

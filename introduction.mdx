@@ -1,0 +1,112 @@
+---
+title: Introduction
+description: Learn about Coffetto, a modern responsive coffee shop website built with vanilla HTML, CSS, and JavaScript
+---
+
+# Welcome to Coffetto
+
+Coffetto is a modern, fully responsive coffee shop website built entirely with vanilla web technologies. It showcases a beautiful design for a Peruvian coffee brand with smooth animations, elegant scroll effects, and a mobile-first approach.
+
+## What is Coffetto?
+
+Coffetto is a single-page website template designed for coffee shops and cafés. The project demonstrates how to create a professional, engaging web experience using pure HTML5, CSS3, and vanilla JavaScript—no frameworks required. It features a complete coffee shop presentation with sections for home, products, about, manufacturing steps, and testimonials.
+
+## Technologies Used
+
+Coffetto is built with fundamental web technologies:
+
+- **HTML5** - Semantic markup structure with modern HTML5 elements
+- **CSS3** - Custom properties (CSS variables), Flexbox, Grid, and responsive design
+- **Vanilla JavaScript** - Pure JavaScript for interactivity without dependencies
+- **ScrollReveal.js** - Lightweight library for smooth scroll animations
+- **RemixIcon** - Icon library for navigation and UI elements
+- **Google Fonts** - Poppins and Pacifico fonts for typography
+
+## Project Structure
+
+The project follows a clean, organized structure:
+
+```
+coffetto/
+├── index.html                 # Main HTML file
+├── assets/
+│   ├── css/
+│   │   └── styles.css        # All styles and responsive design
+│   ├── js/
+│   │   ├── main.js           # Custom JavaScript functionality
+│   │   └── scrollreveal.min.js  # ScrollReveal library
+│   └── img/                  # Image assets
+│       ├── logo.png
+│       ├── favicon.png
+│       ├── home-coffee.png
+│       ├── product-coffee-*.png
+│       └── ...
+└── README.md
+```
+
+## Key Features
+
+### Responsive Design
+The website adapts seamlessly across all devices with breakpoints at 300px, 400px, 576px, 1023px, 1152px, and 1248px. The navigation transforms from a bottom mobile menu to a top horizontal menu on larger screens.
+
+### Smooth Scroll Effects
+Multiple interactive scroll behaviors enhance the user experience:
+- Dynamic header background that appears on scroll
+- Active navigation link highlighting based on scroll position
+- Scroll-to-top button that appears after scrolling 350px
+- ScrollReveal animations with customizable origin, distance, and timing
+
+### CSS Custom Properties
+The design uses CSS variables for easy theming and customization:
+
+```css
+--first-color: hsl(12, 32%, 22%);        /* Primary dark brown */
+--first-color-alt: hsl(12, 42%, 12%);    /* Darker brown */
+--second-color: hsl(39, 62%, 65%);       /* Golden accent */
+--title-color: hsl(12, 12%, 16%);
+--text-color: hsl(12, 12%, 32%);
+```
+
+### Animated Sections
+The ScrollReveal library powers engaging animations throughout the site:
+
+```javascript
+sr.reveal(`.home__data, .products__data, .steps__content, .footer__container`)
+sr.reveal(`.home__img`, {origin: 'bottom'})
+sr.reveal(`.products__card`, {interval: 100})
+sr.reveal(`.about__img, .testimonial__img`, {origin: 'right'})
+sr.reveal(`.about__data, .testimonial__data`, {origin: 'left'})
+```
+
+## Design Philosophy
+
+Coffetto embraces a **vanilla-first** approach:
+
+- **No Build Tools Required** - Open index.html directly in your browser
+- **No Framework Dependencies** - Pure JavaScript keeps the project lightweight
+- **Mobile-First CSS** - Styles are optimized for mobile, then enhanced for larger screens
+- **Semantic HTML** - Clean, accessible markup structure
+- **Modern CSS Features** - Utilizes CSS Grid, Flexbox, and custom properties
+
+<Note>
+The entire website uses only **55 lines of JavaScript** for all interactive features, demonstrating the power of vanilla JavaScript combined with modern CSS.
+</Note>
+
+## Website Sections
+
+Coffetto includes these main sections:
+
+1. **Home** - Hero section with call-to-action
+2. **Products** - Showcase of three coffee products with prices
+3. **About** - Brand history and story
+4. **Steps** - Three-step coffee manufacturing process
+5. **Testimonial** - Customer testimonial section
+6. **Footer** - Newsletter signup and social links
+
+## Ready to Get Started?
+
+Now that you understand what Coffetto is and how it's built, you're ready to set up your own coffee shop website.
+
+<Card title="Next Steps" icon="rocket" href="/quickstart">
+  Follow our quickstart guide to get Coffetto running in minutes, customize the content, and make it your own.
+</Card>

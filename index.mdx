@@ -1,97 +1,321 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+mode: custom
 ---
 
-## Setting up
+{/* Hero Section */}
+<div className="relative bg-gradient-to-br from-[#1f1411] via-[#3d2b27] to-[#1f1411] dark:bg-gradient-to-br dark:from-[#0f1117] dark:via-[#1a1d27] dark:to-[#0f1117] py-20 overflow-hidden">
+  {/* Background Pattern */}
+  <div className="absolute inset-0 opacity-10">
+    <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="coffee-beans" x="0" y="0" width="50" height="50" patternUnits="userSpaceOnUse">
+          <circle cx="10" cy="10" r="2" fill="#ddb777" />
+          <circle cx="40" cy="40" r="2" fill="#ddb777" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#coffee-beans)" />
+    </svg>
+  </div>
 
-Get your documentation site up and running in minutes.
+  <div className="relative max-w-6xl mx-auto px-6 sm:px-8">
+    <div className="text-center">
+      {/* Logo/Brand */}
+      <div className="mb-6 flex items-center justify-center gap-3">
+        <div className="text-5xl">☕</div>
+        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white">
+          Coffetto
+        </h1>
+      </div>
+      
+      {/* Subtitle */}
+      <p className="text-xl sm:text-2xl text-gray-200 dark:text-gray-300 max-w-3xl mx-auto mb-4">
+        A responsive coffee shop website showcasing premium Peruvian coffee
+      </p>
+      
+      <p className="text-base sm:text-lg text-[#ddb777] max-w-2xl mx-auto mb-10">
+        Build beautiful, animated single-page websites with smooth scroll navigation, engaging animations, and mobile-first responsive design
+      </p>
+      
+      {/* CTA Buttons */}
+      <div className="flex flex-wrap items-center justify-center gap-4">
+        <a 
+          href="/quickstart" 
+          className="inline-flex items-center gap-2 px-6 py-3 bg-[#ddb777] hover:bg-[#c9a566] text-[#1f1411] font-semibold rounded-lg transition-colors no-underline"
+        >
+          Get Started
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+        <a 
+          href="/components/html-structure" 
+          className="inline-flex items-center gap-2 px-6 py-3 border-2 border-white/30 hover:border-[#ddb777] bg-white/10 hover:bg-white/20 text-white font-semibold rounded-lg transition-all no-underline"
+        >
+          Explore Components
+        </a>
+        <a 
+          href="https://github.com/yoelfh/web-cafe" 
+          target="_blank"
+          className="inline-flex items-center gap-2 px-6 py-3 border-2 border-white/30 hover:border-white/50 bg-white/5 hover:bg-white/10 text-white font-semibold rounded-lg transition-all no-underline"
+        >
+          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
+          </svg>
+          View Source
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
+{/* Quick Start Section */}
+<div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+  <div className="mb-10">
+    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">
+      Quick Start
+    </h2>
+    <p className="text-lg text-gray-600 dark:text-gray-400">
+      Get your coffee shop website running in minutes
+    </p>
+  </div>
 
-## Make it yours
+  <Steps>
+    <Step title="Clone the repository">
+      Download the Coffetto website template to your local machine:
+      
+      ```bash
+      git clone https://github.com/yoelfh/web-cafe.git
+      cd web-cafe
+      ```
+    </Step>
+    
+    <Step title="Open in your browser">
+      Launch the website by opening the `index.html` file in any modern web browser. No build process or dependencies required!
+      
+      ```bash
+      # Using Python's built-in server (optional)
+      python -m http.server 8000
+      
+      # Or using Node.js http-server (optional)
+      npx http-server
+      ```
+      
+      <Note>
+        The website is built with vanilla HTML, CSS, and JavaScript—no framework required. Just open `index.html` directly or serve it with any static file server.
+      </Note>
+    </Step>
+    
+    <Step title="Customize the content">
+      Edit the content in `index.html` to match your coffee shop's branding:
+      
+      - Update the brand name (search for "Coffetto")
+      - Replace product names and prices
+      - Modify section text in Spanish or translate to your language
+      - Add your own images in the `assets/img/` directory
+      
+      All changes appear instantly when you refresh the browser.
+    </Step>
+  </Steps>
+</div>
 
-Design a docs site that looks great and empowers your users.
+{/* Features Section */}
+<div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+  <div className="mb-10">
+    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">
+      Key Features
+    </h2>
+    <p className="text-lg text-gray-600 dark:text-gray-400">
+      Everything you need for a modern coffee shop website
+    </p>
+  </div>
 
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
-  </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
-  </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
-  </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
-  </Card>
-</Columns>
+  <CardGroup cols={2}>
+    <Card title="Responsive Design" icon="mobile-screen" href="/components/css-styling">
+      Mobile-first layout that adapts beautifully from smartphones to large desktop screens
+    </Card>
+    <Card title="Smooth Animations" icon="wand-magic-sparkles" href="/components/javascript-features">
+      Engaging ScrollReveal animations that bring your content to life as users scroll
+    </Card>
+    <Card title="Active Link Highlighting" icon="link" href="/components/javascript-features">
+      Navigation automatically highlights the current section for better user orientation
+    </Card>
+    <Card title="Product Showcase" icon="mug-hot" href="/components/html-structure">
+      Beautiful product cards with images, names, and pricing displays
+    </Card>
+    <Card title="Easy Customization" icon="palette" href="/customization/colors-theming">
+      Modify colors, fonts, and layout using CSS custom properties
+    </Card>
+    <Card title="Newsletter Form" icon="envelope" href="/customization/content">
+      Ready-to-use email subscription form integrated into the footer
+    </Card>
+  </CardGroup>
+</div>
 
-## Create beautiful pages
+{/* Explore by Topic Section */}
+<div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+  <div className="mb-10">
+    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">
+      Explore the Documentation
+    </h2>
+    <p className="text-lg text-gray-600 dark:text-gray-400">
+      Learn how to customize and deploy your coffee shop website
+    </p>
+  </div>
 
-Everything you need to create world-class documentation.
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {/* Components Card */}
+    <a href="/components/html-structure" className="group block rounded-2xl border border-gray-200 dark:border-[#27272a] hover:border-[#ddb777] dark:hover:border-[#ddb777] overflow-hidden transition-all no-underline bg-white dark:bg-[#1a1d27]">
+      <div className="h-40 bg-gradient-to-br from-[#3d2b27] to-[#1f1411] flex items-center justify-center">
+        <div className="text-6xl">🏗️</div>
+      </div>
+      <div className="p-6">
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+          Components
+        </h3>
+        <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
+          Understand the HTML structure, CSS styling system, and JavaScript features that power the website
+        </p>
+        <div className="flex items-center gap-2 text-[#ddb777] group-hover:text-[#c9a566] text-sm font-medium">
+          Explore components
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </div>
+    </a>
 
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
+    {/* Customization Card */}
+    <a href="/customization/colors-theming" className="group block rounded-2xl border border-gray-200 dark:border-[#27272a] hover:border-[#ddb777] dark:hover:border-[#ddb777] overflow-hidden transition-all no-underline bg-white dark:bg-[#1a1d27]">
+      <div className="h-40 bg-gradient-to-br from-[#ddb777] to-[#c9a566] flex items-center justify-center">
+        <div className="text-6xl">🎨</div>
+      </div>
+      <div className="p-6">
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+          Customization
+        </h3>
+        <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
+          Personalize colors, fonts, layout, and content to match your coffee shop's unique brand identity
+        </p>
+        <div className="flex items-center gap-2 text-[#ddb777] group-hover:text-[#c9a566] text-sm font-medium">
+          Customize your site
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </div>
+    </a>
 
-## Need inspiration?
+    {/* Deployment Card */}
+    <a href="/deployment/hosting-guide" className="group block rounded-2xl border border-gray-200 dark:border-[#27272a] hover:border-[#ddb777] dark:hover:border-[#ddb777] overflow-hidden transition-all no-underline bg-white dark:bg-[#1a1d27]">
+      <div className="h-40 bg-gradient-to-br from-[#16a34a] to-[#15803d] flex items-center justify-center">
+        <div className="text-6xl">🚀</div>
+      </div>
+      <div className="p-6">
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+          Deployment
+        </h3>
+        <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
+          Learn how to deploy your website to popular hosting platforms like GitHub Pages, Netlify, and Vercel
+        </p>
+        <div className="flex items-center gap-2 text-[#ddb777] group-hover:text-[#c9a566] text-sm font-medium">
+          Deploy your site
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </div>
+    </a>
 
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+    {/* Technology Card */}
+    <a href="/introduction" className="group block rounded-2xl border border-gray-200 dark:border-[#27272a] hover:border-[#ddb777] dark:hover:border-[#ddb777] overflow-hidden transition-all no-underline bg-white dark:bg-[#1a1d27]">
+      <div className="h-40 bg-gradient-to-br from-[#f59e0b] to-[#d97706] flex items-center justify-center">
+        <div className="text-6xl">💻</div>
+      </div>
+      <div className="p-6">
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+          Introduction
+        </h3>
+        <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
+          Learn about the technologies used, project structure, and design philosophy behind Coffetto
+        </p>
+        <div className="flex items-center gap-2 text-[#ddb777] group-hover:text-[#c9a566] text-sm font-medium">
+          Read introduction
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+
+{/* Technology Stack Section */}
+<div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+  <div className="mb-8">
+    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">
+      Built With Simplicity
+    </h2>
+    <p className="text-lg text-gray-600 dark:text-gray-400">
+      No frameworks, no build tools—just clean, vanilla web technologies
+    </p>
+  </div>
+
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="p-6 rounded-xl border border-gray-200 dark:border-[#27272a] bg-white dark:bg-[#1a1d27]">
+      <div className="text-4xl mb-3">📄</div>
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">HTML5</h3>
+      <p className="text-sm text-gray-600 dark:text-gray-400">
+        Semantic markup with modern HTML5 elements for better SEO and accessibility
+      </p>
+    </div>
+    
+    <div className="p-6 rounded-xl border border-gray-200 dark:border-[#27272a] bg-white dark:bg-[#1a1d27]">
+      <div className="text-4xl mb-3">🎨</div>
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">CSS3</h3>
+      <p className="text-sm text-gray-600 dark:text-gray-400">
+        Custom properties, flexbox, grid, and responsive design using pure CSS
+      </p>
+    </div>
+    
+    <div className="p-6 rounded-xl border border-gray-200 dark:border-[#27272a] bg-white dark:bg-[#1a1d27]">
+      <div className="text-4xl mb-3">⚡</div>
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Vanilla JavaScript</h3>
+      <p className="text-sm text-gray-600 dark:text-gray-400">
+        Lightweight JavaScript for scroll effects, navigation, and animations
+      </p>
+    </div>
+  </div>
+</div>
+
+{/* Closing CTA */}
+<div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+  <div className="rounded-2xl bg-gradient-to-br from-[#3d2b27] to-[#1f1411] dark:from-[#1a1d27] dark:to-[#0f1117] p-12 text-center border border-[#ddb777]/20">
+    <h2 className="text-3xl font-bold text-white mb-4">
+      Ready to Build Your Coffee Shop Website?
+    </h2>
+    <p className="text-lg text-gray-200 dark:text-gray-300 max-w-2xl mx-auto mb-8">
+      Start customizing Coffetto today and launch your beautiful coffee shop website in minutes
+    </p>
+    <div className="flex flex-wrap items-center justify-center gap-4">
+      <a 
+        href="/quickstart" 
+        className="inline-flex items-center gap-2 px-8 py-4 bg-[#ddb777] hover:bg-[#c9a566] text-[#1f1411] font-semibold rounded-lg transition-colors no-underline text-lg"
+      >
+        Get Started Now
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+      <a 
+        href="https://github.com/yoelfh/web-cafe" 
+        target="_blank"
+        className="inline-flex items-center gap-2 px-8 py-4 border-2 border-white/30 hover:border-white/50 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-lg transition-all no-underline text-lg"
+      >
+        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
+        </svg>
+        Star on GitHub
+      </a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,256 @@
+---
+title: "Colors & Theming"
+description: "Learn how to customize Coffetto's color scheme and typography to match your brand identity"
+---
+
+## Overview
+
+Coffetto uses CSS custom properties (CSS variables) for its color system, making it easy to customize the entire color scheme from a single location. All color variables are defined in the `:root` selector in `assets/css/styles.css`.
+
+## Color System
+
+The color system is built on two main color families:
+
+- **Primary colors**: Browns and dark tones (coffee-inspired)
+- **Secondary/accent colors**: Golden/yellow tones (warmth and energy)
+- **Text colors**: Various shades for hierarchy and readability
+
+### Primary Color Variables
+
+Located in `styles.css:5-18`, these variables control the main brand colors:
+
+```css
+--first-color: hsl(12, 32%, 22%);           /* Main brand color (dark brown) */
+--first-color-alt: hsl(12, 42%, 12%);       /* Darker variant for contrast */
+--first-color-light: hsl(12, 24%, 32%);     /* Lighter variant for accents */
+--second-color: hsl(39, 62%, 65%);          /* Accent color (golden yellow) */
+```
+
+### Text Color Variables
+
+```css
+--title-color: hsl(12, 12%, 16%);           /* Headings and titles */
+--text-color: hsl(12, 12%, 32%);            /* Body text */
+--text-color-light: hsl(12, 8%, 48%);       /* Subtle text and borders */
+--white-color: #fff;                        /* White for dark backgrounds */
+```
+
+## Changing the Color Scheme
+
+<Steps>
+  <Step title="Open the styles file">
+    Navigate to `assets/css/styles.css` and locate the `:root` selector (line 5)
+  </Step>
+  
+  <Step title="Choose your colors">
+    Decide on your brand colors. Coffetto uses HSL format for easy adjustments:
+    - **H** (Hue): 0-360 (color type)
+    - **S** (Saturation): 0-100% (color intensity)
+    - **L** (Lightness): 0-100% (brightness)
+  </Step>
+  
+  <Step title="Update the variables">
+    Replace the values in the `:root` selector with your chosen colors
+  </Step>
+  
+  <Step title="Test responsiveness">
+    Check your changes across different sections to ensure proper contrast
+  </Step>
+</Steps>
+
+## Examples: Creating Custom Themes
+
+### Ocean Blue Theme
+
+Replace the color variables (lines 11-18) with:
+
+```css
+:root {
+  /* Ocean Blue Theme */
+  --first-color: hsl(210, 45%, 25%);          /* Deep ocean blue */
+  --first-color-alt: hsl(210, 55%, 15%);      /* Darker blue */
+  --first-color-light: hsl(210, 35%, 35%);    /* Lighter blue */
+  --second-color: hsl(190, 70%, 60%);         /* Turquoise accent */
+  --title-color: hsl(210, 15%, 18%);
+  --text-color: hsl(210, 10%, 35%);
+  --text-color-light: hsl(210, 8%, 50%);
+  --white-color: #fff;
+}
+```
+
+### Forest Green Theme
+
+```css
+:root {
+  /* Forest Green Theme */
+  --first-color: hsl(140, 40%, 25%);          /* Forest green */
+  --first-color-alt: hsl(140, 50%, 15%);      /* Darker green */
+  --first-color-light: hsl(140, 30%, 35%);    /* Lighter green */
+  --second-color: hsl(45, 80%, 55%);          /* Warm yellow */
+  --title-color: hsl(140, 15%, 18%);
+  --text-color: hsl(140, 10%, 35%);
+  --text-color-light: hsl(140, 8%, 50%);
+  --white-color: #fff;
+}
+```
+
+### Minimalist Gray Theme
+
+```css
+:root {
+  /* Minimalist Gray Theme */
+  --first-color: hsl(0, 0%, 20%);             /* Dark gray */
+  --first-color-alt: hsl(0, 0%, 10%);         /* Nearly black */
+  --first-color-light: hsl(0, 0%, 35%);       /* Medium gray */
+  --second-color: hsl(25, 80%, 60%);          /* Warm orange accent */
+  --title-color: hsl(0, 0%, 15%);
+  --text-color: hsl(0, 0%, 30%);
+  --text-color-light: hsl(0, 0%, 50%);
+  --white-color: #fff;
+}
+```
+
+## Where Colors Are Used
+
+<Tabs>
+  <Tab title="Header">
+    - Background: `--first-color` (line 123)
+    - Logo text: `--white-color` (line 149)
+    - Active link: `--second-color` (line 216)
+    - Border decoration: `--text-color-light` (line 132)
+  </Tab>
+  
+  <Tab title="Home Section">
+    - Background: Gradient from `--first-color` to `--first-color-alt` (lines 221-223)
+    - Subtitle: `--second-color` (line 237)
+    - Title & description: `--white-color` (line 244)
+    - Button background: `--second-color` (line 279)
+  </Tab>
+  
+  <Tab title="Products">
+    - Section background: `--first-color-alt` (line 303)
+    - Card background: `--first-color` (line 307)
+    - Text: `--white-color` (line 341)
+  </Tab>
+  
+  <Tab title="About/Steps">
+    - Background: `--first-color` (lines 372, 401)
+    - Content background: `--white-color` (lines 376, 401)
+    - Text on dark: `--white-color` (line 411)
+    - Circle accents: `--first-color-light` (line 428)
+    - Step numbers: `--second-color` background (line 451)
+  </Tab>
+</Tabs>
+
+## Font Customization
+
+Coffetto uses two Google Fonts defined in `styles.css:22-23`:
+
+```css
+--body-font: "Poppins", sans-serif;        /* Body text */
+--second-font: "Pacifico", cursive;        /* Headings and logo */
+```
+
+### Changing Fonts
+
+<Steps>
+  <Step title="Choose your fonts">
+    Visit [Google Fonts](https://fonts.google.com) and select your fonts
+  </Step>
+  
+  <Step title="Update the import">
+    Replace the import on line 2 of `styles.css`:
+    ```css
+    @import url("https://fonts.googleapis.com/css2?family=YourBodyFont:wght@400;500;600&family=YourHeadingFont&display=swap");
+    ```
+  </Step>
+  
+  <Step title="Update the variables">
+    Change the font family variables (lines 22-23):
+    ```css
+    --body-font: "YourBodyFont", sans-serif;
+    --second-font: "YourHeadingFont", serif;
+    ```
+  </Step>
+</Steps>
+
+### Font Examples
+
+<Tabs>
+  <Tab title="Modern & Clean">
+    ```css
+    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display&display=swap");
+    
+    --body-font: "Inter", sans-serif;
+    --second-font: "Playfair Display", serif;
+    ```
+  </Tab>
+  
+  <Tab title="Elegant & Sophisticated">
+    ```css
+    @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;500;600&family=Cormorant+Garamond&display=swap");
+    
+    --body-font: "Lato", sans-serif;
+    --second-font: "Cormorant Garamond", serif;
+    ```
+  </Tab>
+  
+  <Tab title="Bold & Friendly">
+    ```css
+    @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Lobster&display=swap");
+    
+    --body-font: "Open Sans", sans-serif;
+    --second-font: "Lobster", cursive;
+    ```
+  </Tab>
+</Tabs>
+
+## Accessibility Tips
+
+<Warning>
+  Always maintain proper color contrast ratios for accessibility:
+  - **Normal text**: Minimum 4.5:1 contrast ratio
+  - **Large text** (18pt+): Minimum 3:1 contrast ratio
+  
+  Use tools like [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/) to verify your colors.
+</Warning>
+
+<Tip>
+  **Best practices for color customization:**
+  
+  1. Keep the same HSL structure (adjust hue, keep similar saturation/lightness)
+  2. Maintain the relationship between color variants (alt should be darker, light should be lighter)
+  3. Test your colors in both light and dark sections
+  4. Ensure the accent color (`--second-color`) stands out from primary colors
+  5. Preview on mobile devices to check readability
+</Tip>
+
+## Testing Your Theme
+
+After making changes:
+
+1. **Reload the page** and scroll through all sections
+2. **Check hover states** on buttons and links
+3. **Test mobile view** - open browser DevTools and toggle device mode
+4. **Verify readability** - all text should be clearly legible
+5. **Check transitions** - color changes should be smooth on scroll
+
+<Note>
+  The header changes style on scroll (see `styles.css:206-212`). Make sure your colors work well for both the initial state and the scrolled state.
+</Note>
+
+## Advanced: Dynamic Color Variations
+
+You can create additional color variants using CSS `calc()` or `color-mix()` (in modern browsers):
+
+```css
+:root {
+  --first-color: hsl(12, 32%, 22%);
+  
+  /* Create lighter/darker variants automatically */
+  --first-color-hover: hsl(12, 32%, 30%);  /* +8% lightness */
+  --first-color-shadow: hsla(12, 32%, 22%, 0.2);  /* With transparency */
+}
+```
+
+Use these for hover states, shadows, or overlays without defining multiple hardcoded colors.

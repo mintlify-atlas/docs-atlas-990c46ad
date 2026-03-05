@@ -1,0 +1,622 @@
+---
+title: 'JavaScript Features'
+description: 'Interactive functionality, scroll effects, active navigation, and ScrollReveal animations in Coffetto'
+---
+
+## Overview
+
+Coffetto uses vanilla JavaScript for interactive features and the ScrollReveal library for scroll animations. The JavaScript is lightweight, totaling just 55 lines of code, and focuses on enhancing the user experience with scroll-based effects.
+
+### Core Features
+- **scrollHeader()**: Adds shadow to header when scrolling
+- **scrollUp()**: Shows/hides scroll-to-top button
+- **scrollActive()**: Highlights active navigation links
+- **ScrollReveal**: Animates elements as they enter the viewport
+
+---
+
+## Change Background Header
+
+Adds a shadow effect to the header when the user scrolls past 50px:
+
+```javascript main.js
+const scrollHeader = () =>{
+    const header = document.getElementById('header')
+    // When the scroll is greater than 50 viewport height, add the scroll-header class to the header tag
+    this.scrollY >= 50 ? header.classList.add('scroll-header') 
+                       : header.classList.remove('scroll-header')
+}
+window.addEventListener('scroll', scrollHeader)
+```
+
+### How It Works
+
+<Accordion title="Step-by-Step Breakdown">
+  1. **Get header element**: `document.getElementById('header')` retrieves the header
+  2. **Check scroll position**: `this.scrollY >= 50` tests if user scrolled past 50px
+  3. **Add/remove class**: Ternary operator toggles the `scroll-header` class
+  4. **Event listener**: Fires on every scroll event
+</Accordion>
+
+### CSS Connection
+
+The JavaScript adds this class, which is styled in `styles.css:206-212`:
+
+```css styles.css
+.scroll-header{
+  box-shadow: 0 2px 8px hsla(12, 32%, 12%, .5);
+}
+
+.scroll-header .header__border{
+  opacity: 0;
+}
+```
+
+<Note>
+  The `scroll-header` class adds a box-shadow and hides the decorative border for a cleaner look when scrolling.
+</Note>
+
+### Customization
+
+To change when the shadow appears, modify the threshold:
+
+```javascript
+// Change from 50px to 100px
+this.scrollY >= 100 ? header.classList.add('scroll-header') 
+                    : header.classList.remove('scroll-header')
+```
+
+---
+
+## Show Scroll-to-Top Button
+
+Displays a floating button after scrolling 350px down the page:
+
+```javascript main.js
+const scrollUp = () =>{
+	const scrollUp = document.getElementById('scroll-up')
+    // When the scroll is higher than 350 viewport height, add the show-scroll class to the a tag with the scrollup class
+	this.scrollY >= 350 ? scrollUp.classList.add('show-scroll')
+						: scrollUp.classList.remove('show-scroll')
+}
+window.addEventListener('scroll', scrollUp)
+```
+
+### HTML Element
+
+The button is defined in `index.html:298-300`:
+
+```html
+<a href="#" class="scrollup" id="scroll-up">
+    <i class="ri-arrow-up-line"></i>
+</a>
+```
+
+### CSS Animation
+
+The button slides up from below the viewport (see `styles.css:665-689`):
+
+```css
+.scrollup{
+  position: fixed;
+  right: 1rem;
+  bottom: -50%;  /* Hidden by default */
+  /* ... other styles ... */
+  transition: bottom .5s, transform .3s;
+}
+
+.show-scroll{
+  bottom: 7rem;  /* Visible position */
+}
+```
+
+<Tabs>
+  <Tab title="Default State">
+    - `bottom: -50%` keeps the button hidden below the viewport
+    - User cannot see or interact with it
+  </Tab>
+  <Tab title="Show State">
+    - JavaScript adds `show-scroll` class when `scrollY >= 350`
+    - `bottom: 7rem` moves button into view
+    - 0.5s transition creates smooth slide-up effect
+  </Tab>
+</Tabs>
+
+### Customization
+
+Adjust when the button appears:
+
+```javascript
+// Show button earlier (at 200px)
+this.scrollY >= 200 ? scrollUp.classList.add('show-scroll')
+                    : scrollUp.classList.remove('show-scroll')
+
+// Show button later (at 500px)
+this.scrollY >= 500 ? scrollUp.classList.add('show-scroll')
+                    : scrollUp.classList.remove('show-scroll')
+```
+
+Change button position in CSS:
+
+```css
+.show-scroll{
+  bottom: 3rem;  /* Lower on screen */
+  right: 2rem;   /* Further from edge */
+}
+```
+
+---
+
+## Scroll Sections Active Link
+
+Highlights navigation links based on the currently visible section:
+
+```javascript main.js
+const sections = document.querySelectorAll('section[id]')
+    
+const scrollActive = () =>{
+  	const scrollDown = window.scrollY
+
+	sections.forEach(current =>{
+		const sectionHeight = current.offsetHeight,
+			  sectionTop = current.offsetTop - 58,
+			  sectionId = current.getAttribute('id'),
+			  sectionsClass = document.querySelector('.nav__menu a[href*=' + sectionId + ']')
+
+		if(scrollDown > sectionTop && scrollDown <= sectionTop + sectionHeight){
+			sectionsClass.classList.add('active-link')
+		}else{
+			sectionsClass.classList.remove('active-link')
+		}                                                    
+	})
+}
+window.addEventListener('scroll', scrollActive)
+```
+
+### How It Works
+
+<Accordion title="Detailed Explanation">
+  **1. Select all sections**
+  ```javascript
+  const sections = document.querySelectorAll('section[id]')
+  ```
+  Gets all `<section>` elements with an `id` attribute (home, about, steps, testimonial).
+
+  **2. Get current scroll position**
+  ```javascript
+  const scrollDown = window.scrollY
+  ```
+  Stores how far the user has scrolled from the top.
+
+  **3. Loop through each section**
+  ```javascript
+  sections.forEach(current =>{ ... })
+  ```
+  Checks each section to see if it's in the viewport.
+
+  **4. Calculate section boundaries**
+  ```javascript
+  const sectionHeight = current.offsetHeight,
+        sectionTop = current.offsetTop - 58,
+        sectionId = current.getAttribute('id'),
+        sectionsClass = document.querySelector('.nav__menu a[href*=' + sectionId + ']')
+  ```
+  - `offsetHeight`: Total height of the section
+  - `offsetTop - 58`: Top position minus header height (58px offset)
+  - `getAttribute('id')`: Section ID (e.g., "home", "about")
+  - `querySelector`: Finds the navigation link for this section
+
+  **5. Check if section is in viewport**
+  ```javascript
+  if(scrollDown > sectionTop && scrollDown <= sectionTop + sectionHeight){
+      sectionsClass.classList.add('active-link')
+  }else{
+      sectionsClass.classList.remove('active-link')
+  }
+  ```
+  If the scroll position is within the section's range, add `active-link` class; otherwise, remove it.
+</Accordion>
+
+### Visual Diagram
+
+```
+┌─────────────────────┐
+│   Header (fixed)    │ ← 58px offset
+├─────────────────────┤
+│                     │
+│   Section: Home     │ ← sectionTop
+│                     │
+│   (offsetHeight)    │
+│                     │
+├─────────────────────┤ ← sectionTop + sectionHeight
+│                     │
+│   Section: About    │
+│                     │
+└─────────────────────┘
+```
+
+### CSS Styling
+
+The `active-link` class is styled in `styles.css:215-217`:
+
+```css
+.active-link{
+  color: var(--second-color);
+}
+```
+
+<Note>
+  The `-58` offset in `sectionTop = current.offsetTop - 58` accounts for the fixed header height, ensuring the link activates before the section is hidden behind the header.
+</Note>
+
+### Customization
+
+Adjust the activation offset:
+
+```javascript
+// Activate earlier (100px before section)
+sectionTop = current.offsetTop - 100
+
+// Activate later (only 20px offset)
+sectionTop = current.offsetTop - 20
+```
+
+---
+
+## ScrollReveal Animation
+
+ScrollReveal is a third-party library that animates elements as they enter the viewport. The library is loaded before the main script:
+
+```html index.html
+<script src="assets/js/scrollreveal.min.js"></script>
+<script src="assets/js/main.js"></script>
+```
+
+### Configuration
+
+```javascript main.js
+const sr = ScrollReveal({
+	origin: 'top',
+	distance: '60px',
+	duration: 2500,
+	delay: 400,
+	//reset: true // repiticion de animacion
+})
+```
+
+### Configuration Options
+
+| Option | Value | Description |
+|--------|-------|-------------|
+| `origin` | `'top'` | Elements animate from the top of their position |
+| `distance` | `'60px'` | Elements move 60px during animation |
+| `duration` | `2500` | Animation lasts 2.5 seconds (2500ms) |
+| `delay` | `400` | Wait 400ms before starting animation |
+| `reset` | `false` | Animation only plays once (commented out) |
+
+<Note>
+  The `reset: true` option is commented out. If enabled, animations would replay every time elements enter the viewport.
+</Note>
+
+### Applying Animations
+
+```javascript main.js
+sr.reveal(`.home__data, .products__data, .steps__content,
+			.footer__container`)
+sr.reveal(`.home__img`, {origin: 'bottom'})
+sr.reveal(`.products__card`, {interval: 100})
+sr.reveal(`.about__img, .testimonial__img`, {origin: 'right'})
+sr.reveal(`.about__data, .testimonial__data`, {origin: 'left'})
+```
+
+<Tabs>
+  <Tab title="Default (from top)">
+    ```javascript
+    sr.reveal(`.home__data, .products__data, .steps__content, .footer__container`)
+    ```
+    
+    These elements use the default configuration:
+    - Fade in from top
+    - Move 60px
+    - 2500ms duration
+    - 400ms delay
+  </Tab>
+  <Tab title="Custom origin">
+    ```javascript
+    sr.reveal(`.home__img`, {origin: 'bottom'})
+    sr.reveal(`.about__img, .testimonial__img`, {origin: 'right'})
+    sr.reveal(`.about__data, .testimonial__data`, {origin: 'left'})
+    ```
+    
+    Override the `origin` to create directional animations:
+    - Images slide up from bottom
+    - About/testimonial images slide in from right
+    - About/testimonial text slides in from left
+  </Tab>
+  <Tab title="Staggered interval">
+    ```javascript
+    sr.reveal(`.products__card`, {interval: 100})
+    ```
+    
+    Product cards animate sequentially:
+    - First card: 400ms delay
+    - Second card: 500ms delay
+    - Third card: 600ms delay
+    
+    Creates a cascading effect.
+  </Tab>
+</Tabs>
+
+### Animation Flow Diagram
+
+```
+Page Load
+   │
+   ├─ Scroll down
+   │
+   ├─ .home__data detected (top)
+   │    ├─ Wait 400ms
+   │    └─ Fade in over 2500ms
+   │
+   ├─ .home__img detected (bottom)
+   │    ├─ Wait 400ms
+   │    └─ Slide up over 2500ms
+   │
+   ├─ .products__card detected
+   │    ├─ Card 1: Wait 400ms → animate
+   │    ├─ Card 2: Wait 500ms → animate
+   │    └─ Card 3: Wait 600ms → animate
+   │
+   └─ Continue for remaining elements...
+```
+
+### Customization Examples
+
+<CodeGroup>
+```javascript Faster animations
+const sr = ScrollReveal({
+	origin: 'top',
+	distance: '60px',
+	duration: 1000,  // Changed from 2500ms
+	delay: 200,      // Changed from 400ms
+})
+```
+
+```javascript Larger movement
+const sr = ScrollReveal({
+	origin: 'top',
+	distance: '100px',  // Changed from 60px
+	duration: 2500,
+	delay: 400,
+})
+```
+
+```javascript Different default origin
+const sr = ScrollReveal({
+	origin: 'bottom',  // Changed from 'top'
+	distance: '60px',
+	duration: 2500,
+	delay: 400,
+})
+```
+
+```javascript Enable reset
+const sr = ScrollReveal({
+	origin: 'top',
+	distance: '60px',
+	duration: 2500,
+	delay: 400,
+	reset: true  // Animations replay on scroll
+})
+```
+</CodeGroup>
+
+### Adding New Animations
+
+To animate additional elements, add new `sr.reveal()` calls:
+
+```javascript
+// Animate all buttons from the left
+sr.reveal(`.button`, {origin: 'left', distance: '40px'})
+
+// Animate nav links with stagger
+sr.reveal(`.nav__link`, {interval: 50, origin: 'bottom'})
+
+// Animate section titles with bounce
+sr.reveal(`.section__title`, {duration: 3000, easing: 'ease-in-out'})
+```
+
+<Note>
+  ScrollReveal supports many more options including easing functions, rotation, scale, and mobile settings. See the [ScrollReveal documentation](https://scrollrevealjs.org/) for advanced usage.
+</Note>
+
+---
+
+## Event Listeners Summary
+
+All three scroll functions use the same pattern:
+
+```javascript
+window.addEventListener('scroll', functionName)
+```
+
+### Performance Considerations
+
+<Accordion title="Scroll Event Performance">
+  Scroll events fire very frequently (potentially hundreds of times per second). While these functions are lightweight, you could optimize further with **throttling** or **debouncing**:
+
+  **Throttle Example** (limit execution to once every 100ms):
+  ```javascript
+  let throttleTimer;
+  const throttle = (callback, time) => {
+    if (throttleTimer) return;
+    throttleTimer = true;
+    setTimeout(() => {
+      callback();
+      throttleTimer = false;
+    }, time);
+  };
+
+  window.addEventListener('scroll', () => {
+    throttle(scrollHeader, 100);
+  });
+  ```
+
+  For this project, optimization isn't necessary due to the simple operations, but it's a good practice for more complex scroll handlers.
+</Accordion>
+
+---
+
+## Browser Compatibility
+
+<Tabs>
+  <Tab title="Modern Features Used">
+    - `classList.add()` / `classList.remove()` - IE10+
+    - `querySelectorAll()` - IE9+
+    - `forEach()` - IE12+
+    - Arrow functions (`=>`) - IE: Not supported
+    - Template literals - IE: Not supported
+  </Tab>
+  <Tab title="ScrollReveal Support">
+    ScrollReveal works in all modern browsers:
+    - Chrome/Edge (latest)
+    - Firefox (latest)
+    - Safari (latest)
+    - Mobile browsers (iOS Safari, Chrome Mobile)
+    
+    IE11 requires polyfills or transpilation.
+  </Tab>
+</Tabs>
+
+<Note>
+  If you need to support Internet Explorer, transpile the JavaScript with Babel or rewrite using ES5 syntax (e.g., replace arrow functions with `function` keyword).
+</Note>
+
+---
+
+## Debugging Tips
+
+### Test scroll functions in console
+
+```javascript
+// Check current scroll position
+console.log(window.scrollY);
+
+// Test if header class is applied
+const header = document.getElementById('header');
+console.log(header.classList.contains('scroll-header'));
+
+// Test if scroll button is visible
+const scrollBtn = document.getElementById('scroll-up');
+console.log(scrollBtn.classList.contains('show-scroll'));
+
+// Check active link
+const activeLink = document.querySelector('.active-link');
+console.log(activeLink ? activeLink.textContent : 'No active link');
+```
+
+### Common Issues
+
+<Accordion title="Scroll header not working">
+  **Problem**: Header shadow doesn't appear when scrolling
+  
+  **Solutions**:
+  1. Check if `id="header"` exists on the header element
+  2. Verify CSS for `.scroll-header` class exists
+  3. Test scroll position: `console.log(window.scrollY)`
+  4. Ensure JavaScript file is loaded after the HTML
+</Accordion>
+
+<Accordion title="Active link not highlighting">
+  **Problem**: Navigation links don't highlight when scrolling to sections
+  
+  **Solutions**:
+  1. Verify all sections have `id` attributes
+  2. Check that navigation links use matching `href` values (e.g., `href="#home"`)
+  3. Adjust the `-58` offset if header height changed
+  4. Test section detection: `console.log(sectionTop, scrollDown, sectionHeight)`
+</Accordion>
+
+<Accordion title="ScrollReveal not animating">
+  **Problem**: Elements don't animate on scroll
+  
+  **Solutions**:
+  1. Verify `scrollreveal.min.js` loads before `main.js`
+  2. Check browser console for errors
+  3. Test if ScrollReveal loaded: `console.log(typeof ScrollReveal)`
+  4. Ensure selectors match actual elements: `document.querySelector('.home__data')`
+</Accordion>
+
+---
+
+## Complete Code Reference
+
+Here's the full `main.js` file for reference:
+
+```javascript main.js
+/*=============== CHANGE BACKGROUND HEADER ===============*/
+const scrollHeader = () =>{
+    const header = document.getElementById('header')
+    this.scrollY >= 50 ? header.classList.add('scroll-header') 
+                       : header.classList.remove('scroll-header')
+}
+window.addEventListener('scroll', scrollHeader)
+
+/*=============== SHOW SCROLL UP ===============*/ 
+const scrollUp = () =>{
+	const scrollUp = document.getElementById('scroll-up')
+	this.scrollY >= 350 ? scrollUp.classList.add('show-scroll')
+						: scrollUp.classList.remove('show-scroll')
+}
+window.addEventListener('scroll', scrollUp)
+
+/*=============== SCROLL SECTIONS ACTIVE LINK ===============*/
+const sections = document.querySelectorAll('section[id]')
+    
+const scrollActive = () =>{
+  	const scrollDown = window.scrollY
+
+	sections.forEach(current =>{
+		const sectionHeight = current.offsetHeight,
+			  sectionTop = current.offsetTop - 58,
+			  sectionId = current.getAttribute('id'),
+			  sectionsClass = document.querySelector('.nav__menu a[href*=' + sectionId + ']')
+
+		if(scrollDown > sectionTop && scrollDown <= sectionTop + sectionHeight){
+			sectionsClass.classList.add('active-link')
+		}else{
+			sectionsClass.classList.remove('active-link')
+		}                                                    
+	})
+}
+window.addEventListener('scroll', scrollActive)
+
+/*=============== SCROLL REVEAL ANIMATION ===============*/
+const sr = ScrollReveal({
+	origin: 'top',
+	distance: '60px',
+	duration: 2500,
+	delay: 400,
+	//reset: true
+})
+
+sr.reveal(`.home__data, .products__data, .steps__content,
+			.footer__container`)
+sr.reveal(`.home__img`, {origin: 'bottom'})
+sr.reveal(`.products__card`, {interval: 100})
+sr.reveal(`.about__img, .testimonial__img`, {origin: 'right'})
+sr.reveal(`.about__data, .testimonial__data`, {origin: 'left'})
+```
+
+---
+
+## Next Steps
+
+Now that you understand the JavaScript functionality:
+
+1. **Customize animations**: Adjust ScrollReveal timing and origins
+2. **Add new interactions**: Implement additional scroll effects
+3. **Optimize performance**: Add throttling for scroll events if needed
+4. **Extend functionality**: Add form validation, modals, or other features
+
+For the complete styling implementation, see [CSS Styling](/components/css-styling), and for the HTML markup, see [HTML Structure](/components/html-structure).
